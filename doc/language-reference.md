@@ -32,10 +32,21 @@ ASCII space, tab, carriage return, newline, and form feed are treated as whitesp
 #### <a name="comments"></a>Comments
 
     # Grammar
-    Comment -> "/*" /.*?/ "*/"
-             | "//" /.*$/
+    Comment -> "//" /.*$/
 
-Comments in Clay come in two forms: block comments, delimited by non-nesting `/*` and `*/`, and line comments, begun with `//` and extending to the end of the current source line. Comments are treated grammatically as equivalent to a whitespace character.
+Comments in Clay are limited to line comments, begun with `//` and extending to the end of the current source line. Block comments were eliminated because of their ability to deceptively masqeurade as line comments:
+
+    // C Example
+    int a = 0; /* This comment appears to lie
+    int b = 0;    "outside" the code, but it
+    int c = 0;    actually comments out b and c */
+
+And interleave code and comments:
+
+    // C Example
+    int a = /* some comment */ 1;
+
+Comments are treated grammatically as equivalent to a whitespace character.
 
 #### <a name="identifiersandkeywords"></a>Identifiers and keywords
 

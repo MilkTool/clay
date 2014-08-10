@@ -22,7 +22,6 @@ void tokenize(SourcePtr source, unsigned offset, size_t length,
         switch (tokens.back().tokenKind) {
         case T_SPACE :
         case T_LINE_COMMENT :
-        case T_BLOCK_COMMENT :
             break;
         case T_DOC_START:
             while (nextDocToken(tokens.back())) {
@@ -167,7 +166,7 @@ static bool keywordIdentifier(Token &x) {
 //
 
 static const char *symbols[] = {
-    "..", "::", "^", "@",  
+    "..", "::", "^", "@",
     "(", ")", "[", "]", "{", "}",
     ":", ";", ",", ".", "#",
     NULL
@@ -574,21 +573,6 @@ static bool lineComment(Token &x) {
     return true;
 }
 
-static bool blockComment(Token &x) {
-    char c;
-    if (!next(c) || (c != '/')) return false;
-    if (!next(c) || (c != '*')) return false;
-    bool lastWasStar = false;
-    while (true) {
-        if (!next(c)) return false;
-        if (lastWasStar && (c == '/'))
-            break;
-        lastWasStar = (c == '*');
-    }
-    x = Token(T_BLOCK_COMMENT);
-    return true;
-}
-
 
 //
 // llvmToken
@@ -734,16 +718,13 @@ static bool staticIndex(Token &x) {
 //
 
 static bool docStartLine(Token &x);
-static bool docStartBlock(Token &x);
 
 static bool nextToken(Token &x) {
     x = Token();
     const char *p = save();
     if (space(x)) goto success;
     restore(p); if (docStartLine(x)) goto success;
-    restore(p); if (docStartBlock(x)) goto success;
     restore(p); if (lineComment(x)) goto success;
-    restore(p); if (blockComment(x)) goto success;
     restore(p); if (staticIndex(x)) goto success;
     restore(p); if (opIdentifier(x)) goto success;
     restore(p); if (symbol(x)) goto success;
@@ -771,24 +752,11 @@ success :
 //
 
 
-static bool docIsBlock = false;
 static bool docStartLine(Token &x) {
     char c;
     if (!next(c) || (c != '/')) return false;
     if (!next(c) || (c != '/')) return false;
     if (!next(c) || (c != '/')) return false;
-    x = Token(T_DOC_START);
-    docIsBlock = false;
-    return true;
-}
-
-static bool docStartBlock(Token &x) {
-    char c;
-    if (!next(c) || (c != '/')) return false;
-    if (!next(c) || (c != '*')) return false;
-    if (!next(c) || (c != '*')) return false;
-
-    docIsBlock = true;
     x = Token(T_DOC_START);
     return true;
 }
@@ -803,16 +771,6 @@ static bool docEndLine(Token &x) {
         return true;
     }
     return false;
-}
-
-static bool docEndBlock(Token &x) {
-    char c;
-    do {
-        if (!next(c)) return false;
-    } while (c == '*');
-    if (c != '/') return false;
-    x = Token(T_DOC_END);
-    return true;
 }
 
 static bool docProperty(Token &x) {
@@ -857,15 +815,6 @@ static bool docText(Token &x) {
             restore(end);
             break;
         }
-        end = save();
-        if (docIsBlock && (c == '*')) {
-            if (maybeDocEnd()) {
-                restore(end);
-                break;
-            } else {
-                restore(end);
-            }
-        }
     }
     x = Token(T_DOC_TEXT, llvm::StringRef(begin, (size_t)(end - begin)));
     return true;
@@ -875,21 +824,12 @@ static bool docSpace()
 {
     char c;
     if (!next(c)) return false;
-    if (!docIsBlock && (c == '\n' || c == '\r'))
+    if (c == '\n' || c == '\r')
         return false;
     else if (isSpace(c))
         return true;
-    else if (docIsBlock && c == '*') {
-        const char *p = save();
-        if (!next(c))
-            return true;
-        if (c == '/') {
-            return false;
-        }
-        restore(p);
-        return true;
-    }
-    return false;
+    else
+        return false;
 }
 
 static bool nextDocToken(Token &x) {
@@ -904,12 +844,7 @@ static bool nextDocToken(Token &x) {
         }
     }
 
-    if (docIsBlock) {
-        if (docEndBlock(x))  goto success;
-    } else {
-        if (docEndLine(x))  goto success;
-    }
-
+    if (docEndLine(x))  goto success;
     restore(p); if (docProperty(x))  goto success;
     restore(p); if (docText(x)) goto success;
     if (p != end) {

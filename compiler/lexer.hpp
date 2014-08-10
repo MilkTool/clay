@@ -24,7 +24,6 @@ enum TokenKind {
     T_STATIC_INDEX,
     T_SPACE,
     T_LINE_COMMENT,
-    T_BLOCK_COMMENT,
     T_LLVM,
     T_DOC_START,
     T_DOC_PROPERTY,
