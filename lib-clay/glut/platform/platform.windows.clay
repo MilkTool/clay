@@ -1,8 +1,8 @@
-/* Stroke font constants (use these in GLUT program). */
+
 alias GLUT_STROKE_ROMAN = RawPointer(0);
 alias GLUT_STROKE_MONO_ROMAN = RawPointer(1);
 
-/* Bitmap font constants (use these in GLUT program). */
+
 alias GLUT_BITMAP_9_BY_15 = RawPointer(2);
 alias GLUT_BITMAP_8_BY_13 = RawPointer(3);
 alias GLUT_BITMAP_TIMES_ROMAN_10 = RawPointer(4);

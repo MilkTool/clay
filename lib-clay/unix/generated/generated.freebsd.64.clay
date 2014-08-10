@@ -171,8 +171,8 @@ alias __dev_t = __uint32_t;
 alias __fixpt_t = __uint32_t;
 
 alias __mbstate_t = Union[
-    /* __mbstate8 */ Array[CChar, 128],
-    /* _mbstateL */ __int64_t,
+     Array[CChar, 128],
+     __int64_t,
 ];
 
 external (cdecl) __bswap64_var(arg0:__uint64_t) : __uint64_t;
@@ -789,7 +789,7 @@ record Struct_tm (
     tm_zone : Pointer[CChar],
 );
 
-external tzname : Opaque /* unknown NoDeclFound  */;
+external tzname : Opaque ;
 
 external (cdecl) asctime(arg0:Pointer[Struct_tm]) : Pointer[CChar];
 
@@ -1452,13 +1452,13 @@ record Struct_sigcontext (
     sc_spare : Array[CLong, 4],
 );
 
-alias __sighandler_t = /* unknown kind FunctionProto */ Opaque;
+alias __sighandler_t =  Opaque;
 
 alias Union_sigval = Union[
-    /* sival_int */ CInt,
-    /* sival_ptr */ OpaquePointer,
-    /* sigval_int */ CInt,
-    /* sigval_ptr */ OpaquePointer,
+     CInt,
+     OpaquePointer,
+     CInt,
+     OpaquePointer,
 ];
 
 record Struct_sigevent (
@@ -1490,7 +1490,7 @@ record Struct_sigaction (
 
 alias sig_t = CCodePointer[[CInt],[]];
 
-alias __siginfohandler_t = /* unknown kind FunctionProto */ Opaque;
+alias __siginfohandler_t =  Opaque;
 
 record Struct_sigaltstack (
     ss_sp : Pointer[CChar],
@@ -2036,16 +2036,16 @@ external (cdecl) inet6_rth_segments(arg0:OpaquePointer) : CInt;
 external (cdecl) inet6_rth_getaddr(arg0:OpaquePointer, arg1:CInt) : Pointer[Struct_in6_addr];
 
 alias Union_Unnamed3 = Union[
-    /* __sa_handler */ CCodePointer[[CInt],[]],
-    /* __sa_sigaction */ CCodePointer[[CInt, Pointer[Struct___siginfo], OpaquePointer],[]],
+     CCodePointer[[CInt],[]],
+     CCodePointer[[CInt, Pointer[Struct___siginfo], OpaquePointer],[]],
 ];
 
 alias Union_Unnamed2 = Union[
-    /* _fault */ Struct_Unnamed5,
-    /* _timer */ Struct_Unnamed6,
-    /* _mesgq */ Struct_Unnamed7,
-    /* _poll */ Struct_Unnamed8,
-    /* __spare__ */ Struct_Unnamed9,
+     Struct_Unnamed5,
+     Struct_Unnamed6,
+     Struct_Unnamed7,
+     Struct_Unnamed8,
+     Struct_Unnamed9,
 ];
 
 record Struct_Unnamed9 (
@@ -2071,16 +2071,16 @@ record Struct_Unnamed5 (
 );
 
 alias Union_Unnamed4 = Union[
-    /* __u6_addr8 */ Array[uint8_t, 16],
-    /* __u6_addr16 */ Array[uint16_t, 8],
-    /* __u6_addr32 */ Array[uint32_t, 4],
+     Array[uint8_t, 16],
+     Array[uint16_t, 8],
+     Array[uint32_t, 4],
 ];
 
 alias Union_Unnamed1 = Union[
-    /* _threadid */ __lwpid_t,
-    /* _sigev_thread */ Struct_Unnamed10,
-    /* _kevent_flags */ CUShort,
-    /* __spare__ */ Array[CLong, 8],
+     __lwpid_t,
+     Struct_Unnamed10,
+     CUShort,
+     Array[CLong, 8],
 ];
 
 record Struct_Unnamed10 (

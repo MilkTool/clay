@@ -1,7 +1,7 @@
 // main constructor
 
 
-/// @section  Function 
+/// @section  Function
 
 record Function[In, Out] (
     obj : Pointer[Opaque],
@@ -32,8 +32,8 @@ overload Function[[..I], [..O]]() --> returned:Function[[..I], [..O]] {
     returned.destructor <-- Type(returned.destructor)();
 }
 
-/* this comes before Function[In, Out] so that the shim isn't constructed if the object
-   natively returns no values */
+// this comes before Function[In, Out] so that the shim isn't constructed if the object
+// natively returns no values
 [..In, T when CallDefined?(call, T, ..In) and not Function?(T)]
 overload Function[[..In], []](x:T) {
     return Function[[..In],[]]((forward ..args) => { x(..args); });

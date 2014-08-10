@@ -19,13 +19,13 @@ record Struct_x86_9 (
 );
 
 alias Union_x86_12 = Union[
-    /* a */ Int32,
-    /* b */ CLongDouble,
+     Int32,
+     CLongDouble,
 ];
 
 alias Union_x86_13 = Union[
-    /* a */ Int32,
-    /* b */ CComplexLongDouble,
+     Int32,
+     CComplexLongDouble,
 ];
 
 external (cdecl) c_x86_long_double(x:CLongDouble);

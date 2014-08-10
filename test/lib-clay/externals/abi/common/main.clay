@@ -120,13 +120,13 @@ record Struct21 (
 );
 
 alias Union22 = Union[
-    /* a */ UInt32,
-    /* b */ Float,
+     UInt32,
+     Float,
 ];
 
 alias Union23 = Union[
-    /* a */ UInt32,
-    /* b */ Double,
+     UInt32,
+     Double,
 ];
 
 record Struct26 (

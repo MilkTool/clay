@@ -855,7 +855,7 @@ overload MsgSendParamType(#Param) = ObjectHandle;
 overload MsgSendParamType(#Void) = #[];
 overload MsgSendParamType(#Bool) = BOOL;
 
-/* private */ define msgSendUnbox1;
+ define msgSendUnbox1;
 [Param]
 overload msgSendUnbox1(#Param, forward x: Param) = forward x;
 [Param, Value when ObjectRef?(Param)]
@@ -868,7 +868,7 @@ overload varArgUnbox1(forward x) = forward x;
 [Param when ObjectRef?(Param)]
 overload varArgUnbox1(forward x: Param) = objectHandle(x);
 
-/*XXX private*/ define msgSendUnbox;
+ define msgSendUnbox;
 [T, S when FixedSelector?(S)]
 overload msgSendUnbox(#T, #S, forward ..args)
     = forward ..mapValues2(msgSendUnbox1, #SelectorArgumentCount(S),
@@ -884,7 +884,7 @@ overload msgSendUnbox(#T, #S, forward ..args) {
 }
 
 
-/*XXX private*/ define msgSendBox1;
+ define msgSendBox1;
 [Return]
 overload msgSendBox1(#Return, forward x: Return) = forward x;
 
@@ -897,7 +897,7 @@ overload msgSendBox1(#T, forward x: ObjectHandle)
     = T(x);
 
 [T, S when FixedSelector?(S)]
-/*XXX private*/ msgSendBox(#T, #S, forward ..args)
+ msgSendBox(#T, #S, forward ..args)
     = forward ..mapValues2(msgSendBox1, #SelectorArgumentCount(S),
         ..SelectorArgumentTypes(T, S),
         ..args

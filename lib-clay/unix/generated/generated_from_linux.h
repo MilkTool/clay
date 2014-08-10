@@ -19,6 +19,6 @@
 #include <netdb.h>
 #include <netinet/in.h>
 
-#define __USE_GNU /* Enable GNU extensions for dladdr, dlinfo */
+#define __USE_GNU 
 #include <dlfcn.h>
 #undef __USE_GNU

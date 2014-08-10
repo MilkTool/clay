@@ -6,13 +6,13 @@ import io.files.*;
 import complex.*;
 
 alias Union24 = Union[
-    /* a */ UInt32,
-    /* b */ Complex32,
+     UInt32,
+     Complex32,
 ];
 
 alias Union25 = Union[
-    /* a */ UInt32,
-    /* b */ Complex64,
+     UInt32,
+     Complex64,
 ];
 
 external (cdecl) c_complex_float(arg0:Complex32) : ;

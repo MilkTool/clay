@@ -16,16 +16,16 @@ alias GLUT_STEREO = 256u;
 alias GLUT_LUMINANCE = 512u;
 alias GLUT_NO_RECOVERY = 1024u;
 
-/* Mouse buttons. */
+
 alias GLUT_LEFT_BUTTON = 0;
 alias GLUT_MIDDLE_BUTTON = 1;
 alias GLUT_RIGHT_BUTTON = 2;
 
-/* Mouse button  state. */
+
 alias GLUT_DOWN = 0;
 alias GLUT_UP = 1;
 
-/* function keys */
+
 alias GLUT_KEY_F1 = 1;
 alias GLUT_KEY_F2 = 2;
 alias GLUT_KEY_F3 = 3;
@@ -38,7 +38,7 @@ alias GLUT_KEY_F9 = 9;
 alias GLUT_KEY_F10 = 10;
 alias GLUT_KEY_F11 = 11;
 alias GLUT_KEY_F12 = 12;
-/* directional keys */
+
 alias GLUT_KEY_LEFT = 100;
 alias GLUT_KEY_UP = 101;
 alias GLUT_KEY_RIGHT = 102;
@@ -49,30 +49,30 @@ alias GLUT_KEY_HOME = 106;
 alias GLUT_KEY_END = 107;
 alias GLUT_KEY_INSERT = 108;
 
-/* Entry/exit  state. */
+
 alias GLUT_LEFT = 0;
 alias GLUT_ENTERED = 1;
 
-/* Menu usage  state. */
+
 alias GLUT_MENU_NOT_IN_USE = 0;
 alias GLUT_MENU_IN_USE = 1;
 
-/* Visibility  state. */
+
 alias GLUT_NOT_VISIBLE = 0;
 alias GLUT_VISIBLE = 1;
 
-/* Window status  state. */
+
 alias GLUT_HIDDEN = 0;
 alias GLUT_FULLY_RETAINED = 1;
 alias GLUT_PARTIALLY_RETAINED = 2;
 alias GLUT_FULLY_COVERED = 3;
 
-/* Color index component selection values. */
+
 alias GLUT_RED = 0;
 alias GLUT_GREEN = 1;
 alias GLUT_BLUE = 2;
 
-/* glutGet parameters. */
+
 alias GLUT_WINDOW_X = 100;
 alias GLUT_WINDOW_Y = 101;
 alias GLUT_WINDOW_WIDTH = 102;
@@ -110,7 +110,7 @@ alias GLUT_INIT_DISPLAY_MODE = 504;
 alias GLUT_ELAPSED_TIME = 700;
 alias GLUT_WINDOW_FORMAT_ID = 123;
 
-/* glutDeviceGet parameters. */
+
 alias GLUT_HAS_KEYBOARD = 600;
 alias GLUT_HAS_MOUSE = 601;
 alias GLUT_HAS_SPACEBALL = 602;
@@ -129,7 +129,7 @@ alias GLUT_JOYSTICK_BUTTONS = 614;
 alias GLUT_JOYSTICK_AXES = 615;
 alias GLUT_JOYSTICK_POLL_RATE = 616;
 
-/* glutLayerGet parameters. */
+
 alias GLUT_OVERLAY_POSSIBLE = 800;
 alias GLUT_LAYER_IN_USE = 801;
 alias GLUT_HAS_OVERLAY = 802;
@@ -137,7 +137,7 @@ alias GLUT_TRANSPARENT_INDEX = 803;
 alias GLUT_NORMAL_DAMAGED = 804;
 alias GLUT_OVERLAY_DAMAGED = 805;
 
-/* glutVideoResizeGet parameters. */
+
 alias GLUT_VIDEO_RESIZE_POSSIBLE = 900;
 alias GLUT_VIDEO_RESIZE_IN_USE = 901;
 alias GLUT_VIDEO_RESIZE_X_DELTA = 902;
@@ -149,20 +149,20 @@ alias GLUT_VIDEO_RESIZE_Y = 907;
 alias GLUT_VIDEO_RESIZE_WIDTH = 908;
 alias GLUT_VIDEO_RESIZE_HEIGHT = 909;
 
-/* glutUseLayer parameters. */
+
 alias GLUT_NORMAL = 0;
 alias GLUT_OVERLAY = 1;
 
-/* glutGetModifiers return mask. */
+
 alias GLUT_ACTIVE_SHIFT = 1;
 alias GLUT_ACTIVE_CTRL = 2;
 alias GLUT_ACTIVE_ALT = 4;
 
-/* glutSetCursor parameters. */
-/* Basic arrows. */
+
+
 alias GLUT_CURSOR_RIGHT_ARROW = 0;
 alias GLUT_CURSOR_LEFT_ARROW = 1;
-/* Symbolic cursor shapes. */
+
 alias GLUT_CURSOR_INFO = 2;
 alias GLUT_CURSOR_DESTROY = 3;
 alias GLUT_CURSOR_HELP = 4;
@@ -171,10 +171,10 @@ alias GLUT_CURSOR_SPRAY = 6;
 alias GLUT_CURSOR_WAIT = 7;
 alias GLUT_CURSOR_TEXT = 8;
 alias GLUT_CURSOR_CROSSHAIR = 9;
-/* Directional cursors. */
+
 alias GLUT_CURSOR_UP_DOWN = 10;
 alias GLUT_CURSOR_LEFT_RIGHT = 11;
-/* Sizing cursors. */
+
 alias GLUT_CURSOR_TOP_SIDE = 12;
 alias GLUT_CURSOR_BOTTOM_SIDE = 13;
 alias GLUT_CURSOR_LEFT_SIDE = 14;
@@ -183,18 +183,18 @@ alias GLUT_CURSOR_TOP_LEFT_CORNER = 16;
 alias GLUT_CURSOR_TOP_RIGHT_CORNER = 17;
 alias GLUT_CURSOR_BOTTOM_RIGHT_CORNER = 18;
 alias GLUT_CURSOR_BOTTOM_LEFT_CORNER = 19;
-/* Inherit from parent window. */
+
 alias GLUT_CURSOR_INHERIT = 100;
-/* Blank cursor. */
+
 alias GLUT_CURSOR_NONE = 101;
-/* Fullscreen crosshair (if available). */
+
 alias GLUT_CURSOR_FULL_CROSSHAIR = 102;
 
 alias GLUT_KEY_REPEAT_OFF = 0;
 alias GLUT_KEY_REPEAT_ON = 1;
 alias GLUT_KEY_REPEAT_DEFAULT = 2;
 
-/* Joystick button masks. */
+
 alias GLUT_JOYSTICK_BUTTON_A = 1;
 alias GLUT_JOYSTICK_BUTTON_B = 2;
 alias GLUT_JOYSTICK_BUTTON_C = 4;

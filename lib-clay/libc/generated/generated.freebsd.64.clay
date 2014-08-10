@@ -186,8 +186,8 @@ alias __dev_t = __uint32_t;
 alias __fixpt_t = __uint32_t;
 
 alias __mbstate_t = Union[
-    /* __mbstate8 */ Array[CChar, 128],
-    /* _mbstateL */ __int64_t,
+     Array[CChar, 128],
+     __int64_t,
 ];
 
 alias fpos_t = __off_t;
@@ -409,7 +409,7 @@ external (cdecl) vasprintf(arg0:Pointer[Pointer[CChar]], arg1:Pointer[CChar], ar
 
 external sys_nerr : CInt;
 
-external sys_errlist : Opaque /* unknown NoDeclFound  */;
+external sys_errlist : Opaque ;
 
 external (cdecl) funopen(arg0:OpaquePointer, arg1:CCodePointer[[OpaquePointer, Pointer[CChar], CInt],[CInt]], arg2:CCodePointer[[OpaquePointer, Pointer[CChar], CInt],[CInt]], arg3:CCodePointer[[OpaquePointer, fpos_t, CInt],[fpos_t]], arg4:CCodePointer[[OpaquePointer],[CInt]]) : Pointer[FILE];
 
@@ -817,15 +817,15 @@ external (cdecl) csqrtf(arg0:CComplexFloat) : CComplexFloat;
 external (cdecl) csqrtl(arg0:CComplexLongDouble) : CComplexLongDouble;
 
 alias Union___infinity_un = Union[
-    /* __uc */ Array[CUChar, 8],
-    /* __ud */ CDouble,
+     Array[CUChar, 8],
+     CDouble,
 ];
 
 external __infinity : Union___infinity_un;
 
 alias Union___nan_un = Union[
-    /* __uc */ Array[CUChar, 4],
-    /* __uf */ CFloat,
+     Array[CUChar, 4],
+     CFloat,
 ];
 
 external __nan : Union___nan_un;
@@ -1292,7 +1292,7 @@ record Struct_tm (
     tm_zone : Pointer[CChar],
 );
 
-external tzname : Opaque /* unknown NoDeclFound  */;
+external tzname : Opaque ;
 
 external (cdecl) asctime(arg0:Pointer[Struct_tm]) : Pointer[CChar];
 

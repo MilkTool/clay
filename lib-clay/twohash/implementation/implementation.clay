@@ -78,7 +78,7 @@ overload RegularRecord?(#Bucket[E]) = false;
 //
 
 [E]
-overload TwoHash[E]() 
+overload TwoHash[E]()
 {
     var tableA = Table[Bucket[E]](0);
     var tableB = Table[Bucket[E]](0);
@@ -86,7 +86,7 @@ overload TwoHash[E]()
 }
 
 [B]
-overload Table[B](ln2_size: Int) 
+overload Table[B](ln2_size: Int)
 {
     var size = bitshl(SizeT(1), ln2_size);
     var ptr = allocateRawMemoryAligned(B, size, 16);
@@ -121,7 +121,7 @@ forceinline overload resetUnsafe(t: Table[B]) {
 //
 
 [E]
-overload destroy(th: TwoHash[E]) 
+overload destroy(th: TwoHash[E])
 {
     for (t in th.tables)
         destroy(t);
@@ -152,7 +152,7 @@ overload destroy(b: Bucket[E])
 //
 
 [E, K]
-pEntryAt(th: TwoHash[E], key: K) 
+pEntryAt(th: TwoHash[E], key: K)
 {
     var hash = splitHash(th, key);
     //println("meh", hash);
@@ -179,7 +179,7 @@ pEntryAt(th: TwoHash[E], key: K)
 allocateEntryAt(th: TwoHash[E], key: K, rvalue entry: E)
 {
     assert(null?(pEntryAt(th, key)), "buggy allocation");
-    
+
 retry:
     var hash = splitHash(th, key);
     var entryCount = array(0,0);
@@ -191,18 +191,18 @@ retry:
                 entryCount[i] +: 1;
         }
     }
-    
+
     if (min(entryCount[0], entryCount[1]) == 16)
     {
         grow(th);
         //return allocateEntryAt(th, key, move(entry));
         goto retry;
     }
-    
+
     var bi = 0;
     if (entryCount[1] < entryCount[0])
         bi = 1;
-        
+
     th.size +: 1;
     return allocateInBucket(th, th.tables[bi][hash[bi]], entry, hash[2]);
 }
@@ -337,7 +337,7 @@ overload end(t: Table[B]) = begin(t) + size(t);
 // hashing
 //
 
-largeHash(x) 
+largeHash(x)
 {
     var h = UInt64(hash(x));
     var e = bitshr(wrapMultiply(h, 0x70010101ul), 8);
@@ -358,7 +358,7 @@ overload baseSplitHash(hash: UInt64)
 overload baseSplitHash(th: TwoHash[E], hash: UInt64)
 {
     var sh = baseSplitHash(hash);
-    
+
     sh[0] = bitand(sh[0], size(th.tables[0])-1);
     sh[1] = bitand(sh[1], size(th.tables[1])-1);
     return sh;
@@ -407,7 +407,7 @@ grow(th: TwoHash[E])
 
     var oldTable = move(th.tables[i]);
     th.tables[i] = Table[Bucket[E]](oldTable.ln2_size+1);
-    
+
     for (j in indexes(oldTable))
     {
         for (k in range(16))
@@ -417,7 +417,7 @@ grow(th: TwoHash[E])
                 ref entry = oldTable[j].entries[k];
                 var hash = splitHash(th, entry);
                 ref newBucket = th.tables[i][hash[i]];
-                
+
                 allocateInBucket(th, newBucket, entry, hash[2]);
             }
         }
@@ -428,7 +428,7 @@ grow(th: TwoHash[E])
 debugPrint(th: TwoHash[E])
 {
     var showBuckets = false;
-    
+
     var total_uses = 0;
     for (i in indexes(th.tables))
     {
@@ -448,14 +448,13 @@ debugPrint(th: TwoHash[E])
             var usage = Int( Double(uses)/(16) * 100 );
             if (showBuckets) println("bucket[", j,"] has ", usage, "% occupation");
             table_uses +: uses;
-            /*
-            for (k, v in enumerated(th.tables[i][j].entries))
-            {
-                if (th.tables[i][j].hashBytes[k] == 255)
-                    println("bucket[",j,"].entries[",k,"] = <empty>");
-                else
-                    println("bucket[",j,"].entries[",k,"] = ", v);
-            }*/
+            // for (k, v in enumerated(th.tables[i][j].entries))
+            // {
+            //     if (th.tables[i][j].hashBytes[k] == 255)
+            //         println("bucket[",j,"].entries[",k,"] = <empty>");
+            //     else
+            //         println("bucket[",j,"].entries[",k,"] = ", v);
+            // }
         }
         var usage = Int( Double(table_uses)/(16 * size(th.tables[i])) * 100 );
         println("table", i," has ", usage, "% occupation");

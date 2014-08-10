@@ -38,8 +38,8 @@ alias __darwin_natural_t = CUInt;
 alias __darwin_ct_rune_t = CInt;
 
 alias __mbstate_t = Union[
-    /* __mbstate8 */ Array[CChar, 128],
-    /* _mbstateL */ CLongLong,
+     Array[CChar, 128],
+     CLongLong,
 ];
 
 alias __darwin_mbstate_t = __mbstate_t;
@@ -374,7 +374,7 @@ external (cdecl) getline(arg0:Pointer[Pointer[CChar]], arg1:Pointer[size_t], arg
 
 external sys_nerr : CInt;
 
-external sys_errlist : Opaque /* unknown NoDeclFound  */;
+external sys_errlist : Opaque ;
 
 external (cdecl) asprintf(arg0:Pointer[Pointer[CChar]], arg1:Pointer[CChar], ..) : CInt;
 
@@ -773,8 +773,8 @@ alias sigset_t = __darwin_sigset_t;
 alias uid_t = __darwin_uid_t;
 
 alias Union_sigval = Union[
-    /* sival_int */ CInt,
-    /* sival_ptr */ OpaquePointer,
+     CInt,
+     OpaquePointer,
 ];
 
 record Struct_sigevent (
@@ -801,8 +801,8 @@ record Struct___siginfo (
 alias siginfo_t = Struct___siginfo;
 
 alias Union___sigaction_u = Union[
-    /* __sa_handler */ CCodePointer[[CInt],[]],
-    /* __sa_sigaction */ CCodePointer[[CInt, Pointer[Struct___siginfo], OpaquePointer],[]],
+     CCodePointer[[CInt],[]],
+     CCodePointer[[CInt, Pointer[Struct___siginfo], OpaquePointer],[]],
 ];
 
 record Struct___sigaction (
@@ -885,9 +885,9 @@ external (cdecl) _OSSwapInt32(arg0:__uint32_t) : __uint32_t;
 external (cdecl) _OSSwapInt64(arg0:__uint64_t) : __uint64_t;
 
 alias Union_wait = Union[
-    /* w_status */ CInt,
-    /* w_T */ Struct_Unnamed1,
-    /* w_S */ Struct_Unnamed2,
+     CInt,
+     Struct_Unnamed1,
+     Struct_Unnamed2,
 ];
 
 external (cdecl, "_wait") wait(arg0:Pointer[CInt]) : pid_t;
@@ -1113,9 +1113,9 @@ external (cdecl) arc4random_stir() : ;
 
 external (cdecl) arc4random_uniform(arg0:u_int32_t) : u_int32_t;
 
-external (cdecl) atexit_b(arg0:/* unknown kind BlockPointer */ Opaque) : CInt;
+external (cdecl) atexit_b(arg0: Opaque) : CInt;
 
-external (cdecl) bsearch_b(arg0:OpaquePointer, arg1:OpaquePointer, arg2:size_t, arg3:size_t, arg4:/* unknown kind BlockPointer */ Opaque) : OpaquePointer;
+external (cdecl) bsearch_b(arg0:OpaquePointer, arg1:OpaquePointer, arg2:size_t, arg3:size_t, arg4: Opaque) : OpaquePointer;
 
 external (cdecl) cgetcap(arg0:Pointer[CChar], arg1:Pointer[CChar], arg2:CInt) : Pointer[CChar];
 
@@ -1151,19 +1151,19 @@ external (cdecl) getprogname() : Pointer[CChar];
 
 external (cdecl) heapsort(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:CCodePointer[[OpaquePointer, OpaquePointer],[CInt]]) : CInt;
 
-external (cdecl) heapsort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:/* unknown kind BlockPointer */ Opaque) : CInt;
+external (cdecl) heapsort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3: Opaque) : CInt;
 
 external (cdecl) mergesort(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:CCodePointer[[OpaquePointer, OpaquePointer],[CInt]]) : CInt;
 
-external (cdecl) mergesort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:/* unknown kind BlockPointer */ Opaque) : CInt;
+external (cdecl) mergesort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3: Opaque) : CInt;
 
 external (cdecl) psort(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:CCodePointer[[OpaquePointer, OpaquePointer],[CInt]]) : ;
 
-external (cdecl) psort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:/* unknown kind BlockPointer */ Opaque) : ;
+external (cdecl) psort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3: Opaque) : ;
 
 external (cdecl) psort_r(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:OpaquePointer, arg4:CCodePointer[[OpaquePointer, OpaquePointer, OpaquePointer],[CInt]]) : ;
 
-external (cdecl) qsort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:/* unknown kind BlockPointer */ Opaque) : ;
+external (cdecl) qsort_b(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3: Opaque) : ;
 
 external (cdecl) qsort_r(arg0:OpaquePointer, arg1:size_t, arg2:size_t, arg3:OpaquePointer, arg4:CCodePointer[[OpaquePointer, OpaquePointer, OpaquePointer],[CInt]]) : ;
 
@@ -1914,7 +1914,7 @@ record Struct_tm (
     tm_zone : Pointer[CChar],
 );
 
-external tzname : Opaque /* unknown NoDeclFound  */;
+external tzname : Opaque ;
 
 external getdate_err : CInt;
 

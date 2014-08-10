@@ -10,6 +10,6 @@ overload AtomicTypeForSize(#n) = UInt8;
 
 [T when TypeSize(T) <= TypeSize(RawPointer)] define AtomicTypeForType(#T);
 
-[T] /*default*/ overload AtomicTypeForType(#T) = AtomicTypeForSize(#TypeSize(T));
+[T]  overload AtomicTypeForType(#T) = AtomicTypeForSize(#TypeSize(T));
 [T when Integer?(T)]
 overload AtomicTypeForType(#T) = T;

@@ -516,8 +516,8 @@ external (cdecl) timer_getoverrun(arg0:timer_t) : CInt;
 alias pthread_t = CULong;
 
 alias Union_pthread_attr_t = Union[
-    /* __size */ Array[CChar, 56],
-    /* __align */ CLong,
+     Array[CChar, 56],
+     CLong,
 ];
 
 alias pthread_attr_t = Union_pthread_attr_t;
@@ -540,25 +540,25 @@ record Struct___pthread_mutex_s (
 );
 
 alias pthread_mutex_t = Union[
-    /* __data */ Struct___pthread_mutex_s,
-    /* __size */ Array[CChar, 40],
-    /* __align */ CLong,
+     Struct___pthread_mutex_s,
+     Array[CChar, 40],
+     CLong,
 ];
 
 alias pthread_mutexattr_t = Union[
-    /* __size */ Array[CChar, 4],
-    /* __align */ CInt,
+     Array[CChar, 4],
+     CInt,
 ];
 
 alias pthread_cond_t = Union[
-    /* __data */ Struct_Unnamed1,
-    /* __size */ Array[CChar, 48],
-    /* __align */ CLongLong,
+     Struct_Unnamed1,
+     Array[CChar, 48],
+     CLongLong,
 ];
 
 alias pthread_condattr_t = Union[
-    /* __size */ Array[CChar, 4],
-    /* __align */ CInt,
+     Array[CChar, 4],
+     CInt,
 ];
 
 alias pthread_key_t = CUInt;
@@ -566,26 +566,26 @@ alias pthread_key_t = CUInt;
 alias pthread_once_t = CInt;
 
 alias pthread_rwlock_t = Union[
-    /* __data */ Struct_Unnamed2,
-    /* __size */ Array[CChar, 56],
-    /* __align */ CLong,
+     Struct_Unnamed2,
+     Array[CChar, 56],
+     CLong,
 ];
 
 alias pthread_rwlockattr_t = Union[
-    /* __size */ Array[CChar, 8],
-    /* __align */ CLong,
+     Array[CChar, 8],
+     CLong,
 ];
 
 alias pthread_spinlock_t = CInt;
 
 alias pthread_barrier_t = Union[
-    /* __size */ Array[CChar, 32],
-    /* __align */ CLong,
+     Array[CChar, 32],
+     CLong,
 ];
 
 alias pthread_barrierattr_t = Union[
-    /* __size */ Array[CChar, 4],
-    /* __align */ CInt,
+     Array[CChar, 4],
+     CInt,
 ];
 
 alias __jmp_buf = Array[CLong, 8];
@@ -1123,7 +1123,7 @@ record Struct_cmsghdr (
     cmsg_len : size_t,
     cmsg_level : CInt,
     cmsg_type : CInt,
-    __cmsg_data : Opaque /* unknown NoDeclFound  */,
+    __cmsg_data : Opaque ,
 );
 
 external (cdecl) __cmsg_nxthdr(arg0:Pointer[Struct_msghdr], arg1:Pointer[Struct_cmsghdr]) : Pointer[Struct_cmsghdr];
@@ -1187,8 +1187,8 @@ external (cdecl) __sigdelset(arg0:Pointer[__sigset_t], arg1:CInt) : CInt;
 alias sig_atomic_t = __sig_atomic_t;
 
 alias Union_sigval = Union[
-    /* sival_int */ CInt,
-    /* sival_ptr */ OpaquePointer,
+     CInt,
+     OpaquePointer,
 ];
 
 alias sigval_t = Union_sigval;
@@ -1456,14 +1456,14 @@ external (cdecl) __libc_current_sigrtmin() : CInt;
 external (cdecl) __libc_current_sigrtmax() : CInt;
 
 alias __WAIT_STATUS = Union[
-    /* __uptr */ Pointer[Union_wait],
-    /* __iptr */ Pointer[CInt],
+     Pointer[Union_wait],
+     Pointer[CInt],
 ];
 
 alias Union_wait = Union[
-    /* w_status */ CInt,
-    /* __wait_terminated */ Struct_Unnamed7,
-    /* __wait_stopped */ Struct_Unnamed8,
+     CInt,
+     Struct_Unnamed7,
+     Struct_Unnamed8,
 ];
 
 
@@ -1547,10 +1547,10 @@ alias EPOLLONESHOT = CUInt(1073741824);
 alias EPOLLET = CUInt(-2147483648);
 
 alias Union_epoll_data = Union[
-    /* ptr */ OpaquePointer,
-    /* fd */ CInt,
-    /* u32 */ uint32_t,
-    /* u64 */ uint64_t,
+     OpaquePointer,
+     CInt,
+     uint32_t,
+     uint64_t,
 ];
 
 alias epoll_data_t = Union_epoll_data;
@@ -2480,9 +2480,9 @@ alias POLL_PRI = CUInt(5);
 alias POLL_HUP = CUInt(6);
 
 alias Union_Unnamed9 = Union[
-    /* __u6_addr8 */ Array[uint8_t, 16],
-    /* __u6_addr16 */ Array[uint16_t, 8],
-    /* __u6_addr32 */ Array[uint32_t, 4],
+     Array[uint8_t, 16],
+     Array[uint16_t, 8],
+     Array[uint32_t, 4],
 ];
 
 alias Enum_Unnamed21 = CUInt;
@@ -2565,8 +2565,8 @@ alias _CS_V6_ENV = CUInt(1148);
 alias _CS_V7_ENV = CUInt(1149);
 
 alias Union_Unnamed25 = Union[
-    /* fpstate */ Pointer[Struct__fpstate],
-    /* __fpstate_word */ __uint64_t,
+     Pointer[Struct__fpstate],
+     __uint64_t,
 ];
 
 record Struct_Unnamed1 (
@@ -2612,9 +2612,9 @@ alias TRAP_BRKPT = CUInt(1);
 alias TRAP_TRACE = CUInt(2);
 
 alias Union_Unnamed5 = Union[
-    /* _pad */ Array[CInt, 12],
-    /* _tid */ __pid_t,
-    /* _sigev_thread */ Struct_Unnamed30,
+     Array[CInt, 12],
+     __pid_t,
+     Struct_Unnamed30,
 ];
 
 record Struct_Unnamed7 (
@@ -2640,18 +2640,18 @@ alias CLD_STOPPED = CUInt(5);
 alias CLD_CONTINUED = CUInt(6);
 
 alias Union_Unnamed6 = Union[
-    /* sa_handler */ __sighandler_t,
-    /* sa_sigaction */ CCodePointer[[CInt, Pointer[siginfo_t], OpaquePointer],[]],
+     __sighandler_t,
+     CCodePointer[[CInt, Pointer[siginfo_t], OpaquePointer],[]],
 ];
 
 alias Union_Unnamed4 = Union[
-    /* _pad */ Array[CInt, 28],
-    /* _kill */ Struct_Unnamed34,
-    /* _timer */ Struct_Unnamed35,
-    /* _rt */ Struct_Unnamed13,
-    /* _sigchld */ Struct_Unnamed26,
-    /* _sigfault */ Struct_Unnamed36,
-    /* _sigpoll */ Struct_Unnamed37,
+     Array[CInt, 28],
+     Struct_Unnamed34,
+     Struct_Unnamed35,
+     Struct_Unnamed13,
+     Struct_Unnamed26,
+     Struct_Unnamed36,
+     Struct_Unnamed37,
 ];
 
 record Struct_Unnamed34 (

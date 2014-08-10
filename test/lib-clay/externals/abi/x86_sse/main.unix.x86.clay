@@ -35,13 +35,13 @@ record Struct_x86_7 (
 );
 
 alias Union_x86_10 = Union[
-    /* a */ Int32,
-    /* b */ Vec[Float64,2],
+     Int32,
+     Vec[Float64,2],
 ];
 
 alias Union_x86_11 = Union[
-    /* a */ Int64,
-    /* b */ Vec[Float64,2],
+     Int64,
+     Vec[Float64,2],
 ];
 
 external (cdecl) c_x86_vector(x:Vec[Int64,2], y:Vec[Float32,4], z:Vec[Float64,2]);

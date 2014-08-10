@@ -33,13 +33,13 @@ private import module.path.name;
 
 in some.module;
 
-/* comment */
+
 notAComment0() {}
-/* "comment */
+
 notAComment1() {}
-/* 'comment */
+
 notAComment2() {}
-/* /* comment */
+
 notAComment3() {}
 // comment
 notAComment4() {}
@@ -55,12 +55,6 @@ notAComment8() {}
 notAComment9() {}
 // comment (
 notAComment10() {}
-/*
-])}
-comment
-actuallyThisIsAComment() {
-{(["'
-*/
 
 record TypesTest (
     a: Int8,
@@ -184,13 +178,13 @@ operatorsTest() {
 
     x => y;
     (x, y) => z;
-    
+
     x => { y; };
     (x, y) => { z; };
 
     x -> y;
     (x, y) -> z;
-    
+
     x -> { y; };
     (x, y) -> { z; };
 
@@ -235,7 +229,7 @@ valueTest() {
     0x123;
     0x123abc;
     0x123_abc;
-    
+
     -0;
     -123;
     -1_234;

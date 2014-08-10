@@ -21,7 +21,7 @@ import printer.(printTo);
 //
 
 [op] define AtomicUpdateOp?(#op);
-/* default */ overload AtomicUpdateOp?(op) = false;
+ overload AtomicUpdateOp?(op) = false;
 overload AtomicUpdateOp?(#(+)) = true;
 overload AtomicUpdateOp?(#(-)) = true;
 overload AtomicUpdateOp?(#(&)) = true;
