@@ -121,13 +121,7 @@ convertPointerType(type:CXType, refCursor:CXCursor) : String {
         } else if (decl.kind != CXCursor_NoDeclFound) {
             return str("Pointer[", convertTypeFromDeclaration(decl), "]");
         } else {
-            return str("OpaquePointer /* unknown ",
-                clang_getTypeKindSpelling(type.kind),
-                " referenced by ",
-                clang_getCursorKindSpelling(refCursor.kind),
-                " ",
-                clang_getCursorSpelling(refCursor),
-                " */");
+            return "OpaquePointer";
         }
     }
     case (CXType_Typedef) {
@@ -147,9 +141,7 @@ convertTypeFromDeclaration(declaration:CXCursor) : String {
     case (CXCursor_TypedefDecl)
         return clayIdentifier(str(clang_getCursorSpelling(declaration)));
     else
-        return str("Opaque /* unknown ",
-            clang_getCursorKindSpelling(clang_getCursorKind(declaration)), " ",
-            clang_getCursorSpelling(declaration), " */");
+        return "Opaque";
 }
 
 convertType(type:CXType, refCursor:CXCursor) : String {
@@ -196,8 +188,7 @@ convertType(type:CXType, refCursor:CXCursor) : String {
         case (CXType_Double)
             return str("CComplexDouble");
         else
-            return str("Opaque /* unsupported complex type ",
-                clang_getTypeKindSpelling(elementType.kind), " */");
+            return "Opaque";
     }
     case (CXType_Pointer)
         return convertPointerType(clang_getPointeeType(type), refCursor);
@@ -221,9 +212,7 @@ convertType(type:CXType, refCursor:CXCursor) : String {
             "]",
         );
     }
-    return str("/* unknown kind ",
-        clang_getTypeKindSpelling(type.kind), " */ Opaque");
-
+    return "Opaque";
 }
 
 visitStruct(cursor:CXCursor, parent:CXCursor, data:CXClientData) : Int
@@ -255,7 +244,7 @@ visitUnion(cursor:CXCursor, parent:CXCursor, data:CXClientData) : Int
     switch (kind)
     case (CXCursor_FieldDecl) {
         var type = clang_getCursorType(cursor);
-        printlnTo(g_bindingsOut, "    /* ", clang_getCursorSpelling(cursor), " */ ", convertType(type, cursor), ",");
+        printlnTo(g_bindingsOut, "    ", convertType(type, cursor), ",");
     }
     else {}
 
@@ -417,7 +406,7 @@ visitToplevel(cursor:CXCursor, parent:CXCursor, data:CXClientData) : Int
         else
             printTo(g_bindingsOut, "cdecl");
 
-        maybe(attributes.asmLabel, 
+        maybe(attributes.asmLabel,
             asmLabel -> {
                 printTo(g_bindingsOut, ", ", stringRepr(asmLabel));
             },
@@ -640,7 +629,7 @@ main(argc, argv)
 
     try {
         clang_argc, clang_argv, options = parseOptions(argc, argv);
-        maybe(options.outputFileName, 
+        maybe(options.outputFileName,
             outputFileName -> {g_bindingsOut = File(outputFileName, CREATE);}
         );
     } catch (ex:Usage) {
