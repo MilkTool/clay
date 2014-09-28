@@ -15,7 +15,7 @@ overload tan(x:Double) {
 	if(ix <= 0x3fe921fb) {
 		if(ix<0x3e400000)			// x < 2**-27 
 			if(wrapCast(Int32,x)==0) return x;		// generate inexact 
-	    return kernel_tan(x,0.,1);
+	    return kernel_tan(x,0.0,1);
 	}
     // tan(Inf or NaN) is NaN 
 	else {
@@ -34,6 +34,6 @@ overload tan(z:ComplexDouble) {
 	// ctan(z) = -I * ctanh(I * z) 
 	// var y = tanh(Complex(-imagValue(z), real(z)));
 	// return Complex(imagValue(y), real(y));
-	return  -1.j * tanh(z * 1.j);
+	return  -1.0j * tanh(z * 1.0j);
 }
 

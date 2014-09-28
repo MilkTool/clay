@@ -3,4 +3,4 @@ import numbers.floats.(finite?);
 
 [T,I when Float?(T) and Integer?(I)]
 overload ldexp(value:T, i:I)
-    = if(not finite?(value) or value==0.) value else scalbn(value,i);
+    = if(not finite?(value) or value==0.0) value else scalbn(value,i);

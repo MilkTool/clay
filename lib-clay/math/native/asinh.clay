@@ -10,9 +10,9 @@ import complex.*;
 overload asinh(x:Float) = Float(asinh(Double(x)));
 
 overload asinh(x:Double) {
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HUGE = GreatestPositiveFinite(Double);
-	var t,w = 0.,0.;
+	var t,w = 0.0,0.0;
 	var hx = GET_IEEE_HIGH(x);
 	var ix = bitand(hx,MM);
 	if(ix>=EM) return x+x;	// x is inf or NaN 

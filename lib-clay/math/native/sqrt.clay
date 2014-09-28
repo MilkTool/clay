@@ -45,8 +45,8 @@ private var rt1 = 4.99999999495955425917856814202739E-01;
 private var rt2 = 3.75017500867345182581453026130850E-01;
 private var rt3 = 3.12523626554518656309172508769531E-01;
 private var big = 134217728.0;
-private var t512 = 0x1.p512;
-private var tm256 = 0x1.p-256;
+private var t512 = 0x1.0p512;
+private var tm256 = 0x1.0p-256;
 
 [T] inline Mul12(u:T,v:T) --> rh:T,rl:T {
     rh <-- u*v;
@@ -97,8 +97,8 @@ overload sqrt(x:Double) {
 
 
 overload sqrt(x:Float) {
-    alias ONE = 1.f;
-    alias ZERO = 0.f;
+    alias ONE = 1.0f;
+    alias ZERO = 0.0f;
     alias TINY = LeastPositive(Float);
 
     var ix = GET_FLOAT_SIGNED(x);
@@ -145,7 +145,7 @@ overload sqrt(x:Float) {
         r = bitshr(r,1);
     }
 
-    var z = 0.;
+    var z = 0.0;
       // use floating add to find out rounding direction 
     if(ix!=0) {
         z = ONE-TINY; // trigger inexact flag 

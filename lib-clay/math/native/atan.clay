@@ -37,7 +37,7 @@ private var aT = array(
 
 
 overload atan(a:Double){
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HUGE = GreatestPositiveFinite(Double);
 	var id,x = 0,a;
 	var hx = GET_IEEE_HIGH(x);

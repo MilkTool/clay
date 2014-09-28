@@ -9,21 +9,21 @@ alias CC[T] = CodePointer[[T],[T]];
 alias CD[T] = CodePointer[[T],[ComplexBaseType(T)]];
 
 
-var fdata[T] = array(T(0.+0j),
-                    T(-0.+0j),
-                    T(-1.-1j),
-                    T(2.+2j),
-                    T(0.+nan(Imag64)),
-                    T(-0.+nan(Imag64)),
-                    T(1.+infinity(Imag64)),
-                    T(1.+nan(Imag64)),
+var fdata[T] = array(T(0.0+0j),
+                    T(-0.0+0j),
+                    T(-1.0-1j),
+                    T(2.0+2j),
+                    T(0.0+nan(Imag64)),
+                    T(-0.0+nan(Imag64)),
+                    T(1.0+infinity(Imag64)),
+                    T(1.0+nan(Imag64)),
                     T(-infinity(Double)+1j),
                     T(infinity(Double)+1j),
                     T(-infinity(Double)+infinity(Imag64)),
                     infinity(T),
                     T(infinity(Double)+nan(Imag64)),
                     T(-infinity(Double)+nan(Imag64)),
-                    T(nan(Double)+1.j),
+                    T(nan(Double)+1.0j),
                     T(nan(Double)+infinity(Imag64)),
                     nan(T));
 

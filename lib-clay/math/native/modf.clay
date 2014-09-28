@@ -30,7 +30,7 @@ modf(x:Double, iptr:Pointer[Double]) {
 			iptr^ = x;
 			return 0.0 / x;
 	    }
-	    iptr^ = x*1.;
+	    iptr^ = x*1.0;
 	    SET_IEEE(ix,bitand(GET_IEEE_HIGH(ix),SM),0);
 	    return GET_IEEE_DB(ix);	// return +-0 
 	} 

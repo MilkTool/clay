@@ -121,13 +121,13 @@ Integer literals may be expressed in decimal, or in hexadecimal prefixed by `0x`
 #### <a name="floatingpointliterals"></a>Floating-point literals
 
     # Grammar
-    FloatToken -> "0x" HexDigits ("." HexDigits?)? /[pP] [+-]?/ DecimalDigits
-                | DecimalDigits ("." DecimalDigits?)? (/[eE] [+-]?/ DecimalDigits)?
+    FloatToken -> "0x" HexDigits ("." HexDigits)? /[pP] [+-]?/ DecimalDigits
+                | DecimalDigits ("." DecimalDigits)? (/[eE] [+-]?/ DecimalDigits)?
 
-Like integers, floating-point literals also come in decimal and hexadecimal forms. A floating-point decimal literal is differentiated from an integer literal by including either a decimal point `.` followed by zero or more decimal digits, an exponential marker `e` or `E` followed by a decimal value indicating the decimal exponent, or both. Floating-point hexadecimal literals likewise contain an optional hexadecimal point (also `.`) followed by zero or more hex digits, but require their exponential marker `p` or `P` followed by a decimal value indicating the binary exponent. Like integer literals, floating-point literals may also include underscores after any digit in the integer, mantissa, or exponent for human readability.
+Like integers, floating-point literals also come in decimal and hexadecimal forms. A floating-point decimal literal is differentiated from an integer literal by including either a decimal point `.` followed by one or more decimal digits, an exponential marker `e` or `E` followed by a decimal value indicating the decimal exponent, or both. Floating-point hexadecimal literals likewise contain an optional hexadecimal point (also `.`) followed by one or more hex digits, but require their exponential marker `p` or `P` followed by a decimal value indicating the binary exponent. Like integer literals, floating-point literals may also include underscores after any digit in the integer, mantissa, or exponent for human readability.
 
     // Examples of decimal floating-point literals
-    1. 1.0 1e0 1e-2 0.000_001 1e1_000
+    1.0 1e0 1e-2 0.000_001 1e1_000
     // Examples of hexadecimal floating-point literals
     0x1p0 0x1.0p0 0x1.0000_0000_0000_1p1_023
 
@@ -921,7 +921,7 @@ The simplest form of function definition creates a new function symbol with a si
 
     [T | Float?(T)]
     quadraticRoots(a:T, b:T, c:T) : T, T {
-        var q = -0.5*(b+signum(b)*sqrt(b*b - 4.*a*c));
+        var q = -0.5*(b+signum(b)*sqrt(b*b - 4.0*a*c));
         return q/a, c/q;
     }
 
@@ -930,7 +930,7 @@ A simple function definition always defines a new symbol name; it is an error if
     // Example
     abs(x:Int) = if (x < 0) -x else x;
     // ERROR: abs is already defined
-    abs(x:Float) = if (x < 0.) -x else if (x == 0.) 0. else x;
+    abs(x:Float) = if (x < 0.0) -x else if (x == 0.0) 0.0 else x;
 
 Overloads are necessary to extend a function with multiple implementations.
 
@@ -947,7 +947,7 @@ Simple function definitions define a symbol and attach a function implementation
     // Example
     define abs;
     overload abs(x:Int) = if (x < 0) -x else x;
-    overload abs(x:Float) = if (x < 0.) -x else if (x == 0.) 0. else x;
+    overload abs(x:Float) = if (x < 0.0) -x else if (x == 0.0) 0.0 else x;
 
 A `define` may also define an interface constraint for the symbol by following the symbol name with a list of [arguments](#arguments) and optional [return types](#returntypes). All overloads attached to the symbol must conform to a subset of the specified interface. If the `define` form does not specify arguments or return types, then the argument types and/or return types of the created symbol's overloads are unconstrained.
 
@@ -958,7 +958,7 @@ A `define` may also define an interface constraint for the symbol by following t
     [T | Integer?(T)]
     overload abs(x:T) = if (x < 0) -x else x;
     [T | Float?(T)]
-    overload abs(x:T) = if (x < 0.) -x else if (x == 0.) 0. else x;
+    overload abs(x:T) = if (x < 0.0) -x else if (x == 0.0) 0.0 else x;
 
     // Not valid because Numeric?(String) is false
     overload abs(x:String) {
@@ -1508,7 +1508,7 @@ Analogous to [alias functions](#inlineandaliasqualifiers), global aliases define
     // Example
     alias PI = 3.14159265358979323846264338327950288;
 
-    degreesToRadians(deg:Double) : Double = (PI/180.)*deg;
+    degreesToRadians(deg:Double) : Double = (PI/180.0)*deg;
 
 Global aliases may be parameterized with a pattern guard. If no predicate is necessary, the pattern guard is optional; the given parameters will be taken as unbounded pattern variables.
 
@@ -1748,12 +1748,12 @@ Functions with branching control flow may have multiple return statements. The r
     // Example
     [T | Float?(T)]
     quadraticRoots(a:T, b:T, c:T) : T, T {
-        if (b == 0.) {
+        if (b == 0.0) {
             var r = sqrt(-c/a);
             return r, -r;
         }
 
-        var q = -0.5*(b+signum(b)*sqrt(b*b - 4.*a*c));
+        var q = -0.5*(b+signum(b)*sqrt(b*b - 4.0*a*c));
         return q/a, c/q;
     }
 
@@ -2531,7 +2531,7 @@ Literals evaluate to primitive constant values.
         main() {
             println(Type(1.0f)); // Float32
             println(Type(-1.0)); // Float64
-            println(Type(+1.j)); // Imag64
+            println(Type(+1.0j)); // Imag64
         }
 
 * Character literals consist of a [character literal token](#characterliterals). They are evaluated by passing the ASCII code of the represented character to the `Char` [operator function](#operatorfunctions).

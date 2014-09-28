@@ -2,16 +2,16 @@ import printer.formatter.(repr);
 import printer.(println);
 
 main() {
-    println(0.);
-    println(-0.);
-    println(1.);
-    println(-1.);
+    println(0.0);
+    println(-0.0);
+    println(1.0);
+    println(-1.0);
 
     println(repr(0x0p0));
     println(repr(-0x0p0));
     println(repr(0x1p0));
     println(repr(0x2p0));
-    println(repr(0x3.p0));
+    println(repr(0x3.0p0));
     println(repr(-0x1p0));
     println(repr(0x1000p0));
     println(repr(0x1p10));

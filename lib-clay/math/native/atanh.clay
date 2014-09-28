@@ -14,7 +14,7 @@ alias ZERO = 0.0;
 overload atanh(x:Float) = Float(atanh(Double(x)));
 
 overload atanh(a:Double) {
-	var x,t = a,0.;
+	var x,t = a,0.0;
 	var xdb = MAKE_IEEE(x);
 	var ix = bitand(GET_IEEE_HIGH(xdb),MM);
 	if (bitor(ix,bitshr(bitor(GET_IEEE_LOW(xdb),-GET_IEEE_LOW(xdb)),31))>RM) // |x|>1

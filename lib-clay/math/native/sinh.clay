@@ -12,7 +12,7 @@ overload sinh(x:Float) = Float(sinh(Double(x)));
 
 
 overload sinh(x:Double) {
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HUGE = GreatestPositiveFinite(Double);
 
     // High word of |x|. 
@@ -79,7 +79,7 @@ overload sinh(z:ComplexDouble) {
 		else if (ix < 0x4096bbaa) {
 			// x < 1455: scale to avoid overflow 
 			z = __ldexp_cexp(Complex(abs(x), y), -1);
-			return Complex(real(z) * copysign(1., x), imag(z));
+			return Complex(real(z) * copysign(1.0, x), imag(z));
 		} 
 		else {
 			// x >= 1455: the result always overflows 
@@ -97,7 +97,7 @@ overload sinh(z:ComplexDouble) {
 	// the same as d(NaN).
 	 
 	if (bitor(ix,GET_IEEE_LOW(xdb)) == 0 and iy >= EM)
-		return Complex(copysign(0., x * (y - y)), y - y);
+		return Complex(copysign(0.0, x * (y - y)), y - y);
 
 	// sinh(+-Inf +- I 0) = +-Inf + I +-0.
 	// sinh(NaN +- I 0)   = d(NaN) + I +-0.
@@ -105,7 +105,7 @@ overload sinh(z:ComplexDouble) {
 	if (bitor(iy,GET_IEEE_LOW(ydb)) == 0 and ix >= EM) {
 		if (bitor(bitand(GET_IEEE_HIGH(xdb),NEM),GET_IEEE_LOW(xdb)) == 0)
 			return Complex(x, y);
-		return Complex(x, copysign(0., y));
+		return Complex(x, copysign(0.0, y));
 	}
 
 	// sinh(x +- I Inf) = dNaN + I dNaN.

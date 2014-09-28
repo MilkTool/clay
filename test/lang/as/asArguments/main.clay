@@ -6,6 +6,6 @@ foo(x:T as Int64, y as Float64) = T, Type(x), Type(y);
 main() {
 	var a = 2;
 	ref ra = a;	
-	println(..weaveValues(",", ..foo(a, 7.f)));
+	println(..weaveValues(",", ..foo(a, 7.0f)));
 	println(..weaveValues(",", ..foo(ra, 9.0)));
 }

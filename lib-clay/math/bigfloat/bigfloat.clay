@@ -26,7 +26,7 @@ private alias radix_mtwo_double = floatFromBits(wrapBitshl(1023ul - 2*BF_NB_BITS
 private alias radix_rng_double  = floatFromBits(wrapBitshl(1023ul + BF_NB_BITS*BF_MAX_RANGE,52));
 
 overload BigFloat() = BigFloat(array(0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
-             0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u),0., 0, 1);
+             0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u),0.0, 0, 1);
 
 overload BitwiseMovedType?(#BigFloat) = true;
 
@@ -39,19 +39,19 @@ forceinline overload BigFloat?(#BigFloat) = true;
 
 
 alias bf_zero = BigFloat(array(0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u,
-    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 0.,  0,   1 );
+    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 0.0,  0,   1 );
 
 alias bf_half = BigFloat(array(0x20000000u, 0x00000000u, 0x00000000u, 0x00000000u,
-    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 0., -1,   1 );
+    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 0.0, -1,   1 );
 
 alias bf_one = BigFloat(array(0x00000001u, 0x00000000u, 0x00000000u, 0x00000000u,
-    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 1.,  0,   1 );
+    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 1.0,  0,   1 );
 
 alias bf_two = BigFloat(array(0x00000002u, 0x00000000u, 0x00000000u, 0x00000000u,
-    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 1.,  0,   1 );
+    0x00000000u, 0x00000000u, 0x00000000u, 0x00000000u), 1.0,  0,   1 );
 
 alias bf_sixinv = BigFloat(array(0x0aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau,
-    0x2aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau), 1.,  -1,   1 );
+    0x2aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau, 0x2aaaaaaau), 1.0,  -1,   1 );
 
 
 overload BigFloat(x:Double) : BigFloat {
@@ -70,9 +70,9 @@ overload BigFloat(x:Double) : BigFloat {
         result.index = 0;
         result.sign = 1;
     }
-    else {    // Normals,  denormals, +/- 0.
+    else {    // Normals,  denormals, +/- 0.0
         // This number is not an exception
-        result.excp = 1.;
+        result.excp = 1.0;
         if (exponent == 0){
             // x is a denormal number : bring it back to the normal range
             nb.2 = nb.2 * radix_two_double;      // 2^(2.BF_NB_BITS)
@@ -113,7 +113,7 @@ overload BigFloat(x:Double) : BigFloat {
 [T when BigFloat?(T)]
 overload Double(x:T) --> result:Double {
     var nb, rndcorr = db_number(), db_number();
-    var res = 0.;
+    var res = 0.0;
     // convert the MSB digit into a double, and store it in nb.d
     nb.2 = Double(x.h_word[0]);
     // place the two next digits in lowpart
@@ -125,7 +125,7 @@ overload Double(x:T) --> result:Double {
     //   together they include the 53+ guard bits to decide rounding
 
     // test for  s/qNan, +/- Inf, +/- 0, placed here for obscure performance reasons
-    if (x.excp != 1.)
+    if (x.excp != 1.0)
         result <-- x.excp;
     // take the exponent of nb.d (will be in [0:BF_NB_BITS])
     var expo = bitshr(bitand(nb.0[1] , 0x7ff00000),20) - 1023;
@@ -193,7 +193,7 @@ overload Double(x:T) --> result:Double {
         // the final number is a denormal with 52-(expfinal+1022)
         // significant bits.
         if (expofinal < -1022 - 53 )
-            res = 0.;
+            res = 0.0;
         else {
             // align the rest of the mantissa to nb
             lowpart = bitshr(lowpart , expo+(2*BF_NB_BITS)-52);
@@ -243,7 +243,7 @@ forceinline overload assign(ref result:T, x:T) : {
 forceinline overload assign(ref result:BigFloat, x:T) {
     if(x == 0){
         resetUnsafe(result.h_word);
-        result.excp = 0.;
+        result.excp = 0.0;
         result.index = 0;
         result.sign = 1;
     }
@@ -312,14 +312,14 @@ square(x:T) : T {
     var x3,x2,x1,x0 = UInt64(x.h_word[3]),UInt64(x.h_word[2]),UInt64(x.h_word[1]),UInt64(x.h_word[0]);
 
     var r0 =  x0*x0;
-    var r1 = (x0*x1)* 2. ;
-    var r2 =  x1*x1 + (x0*x2*2.);
-    var r3 = (x1*x2 +  x0*x3)* 2.;
-    var r4 =  x2*x2 + (x1*x3 + x0*x4)* 2.;
-    var r5 = (x2*x3 +  x1*x4 + x0*x5)* 2.;
-    var r6 =  x3*x3 + (x2*x4 + x1*x5 + x0*x6)* 2.;
-    var r7 = (x3*x4 +  x2*x5 + x1*x6 + x0*x7)* 2.;
-    var r8 =  x4*x4 + (x3*x5 + x2*x6 + x1*x7)* 2.;
+    var r1 = (x0*x1)* 2.0 ;
+    var r2 =  x1*x1 + (x0*x2*2.0);
+    var r3 = (x1*x2 +  x0*x3)* 2.0;
+    var r4 =  x2*x2 + (x1*x3 + x0*x4)* 2.0;
+    var r5 = (x2*x3 +  x1*x4 + x0*x5)* 2.0;
+    var r6 =  x3*x3 + (x2*x4 + x1*x5 + x0*x6)* 2.0;
+    var r7 = (x3*x4 +  x2*x5 + x1*x6 + x0*x7)* 2.0;
+    var r8 =  x4*x4 + (x3*x5 + x2*x6 + x1*x7)* 2.0;
 
     var val,tmp = 0ul,0ul;
     // Carry propagation
@@ -357,7 +357,7 @@ square(x:T) : T {
 private do_add(result, x, y) : {
     var r0,r1,r2,r3,r4,r5,r6,r7 = 0,0,0,0,0,0,0,0;
     var dif = x.index - y.index;
-    result.excp = x.excp + y.excp - 1.;
+    result.excp = x.excp + y.excp - 1.0;
     result.index = x.index;
     result.sign = x.sign;
 
@@ -447,7 +447,7 @@ private do_add(result, x, y) : {
 
 private do_sub(result, x, y){
     var res = Array[Int,BF_NB_WORDS]();
-    result.excp = x.excp + y.excp - 1.;
+    result.excp = x.excp + y.excp - 1.0;
     var dif  = x.index - y.index;
     result.index = x.index;
 
@@ -592,7 +592,7 @@ overload recip(x:T) --> result:T {
     tmp.index = 0;
     var app_x = Double(tmp);
     // inv is a 53-bit approximation of 1/x
-    var inv = 1./app_x;
+    var inv = 1.0/app_x;
     var res = BigFloat(inv);
     res.index -: x.index;
 
@@ -611,7 +611,7 @@ overload recip(x:T) --> result:T {
 [T when BigFloat?(T)]
 overload divide(x:T, y:T) :T {
     var result = BigFloat();
-    if (x.excp != 1.)
+    if (x.excp != 1.0)
         result.excp = x.excp / y.excp;
     else{
         var res = recip(y);

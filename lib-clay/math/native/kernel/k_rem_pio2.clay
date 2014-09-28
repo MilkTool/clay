@@ -151,10 +151,10 @@ private var PIo2 = array(
   2.16741683877804819444e-51 // 0x3569F31D, 0x00000000 
 );
 
+alias ZERO = 0.0;
 alias two24   =  1.67772160000000000000e+07; // 0x41700000, 0x00000000 
 alias twon24  =  5.96046447753906250000e-08; // 0x3E700000, 0x00000000 
-alias ZERO = 0.;
-alias ONE = 1.;
+alias ONE = 1.0;
 	
 k_rem_pio2(x:Array[Double,3], y:Array[Double,2], e0, nx, prec) {
 	var iq = Array[Int32,20]();
@@ -185,7 +185,7 @@ k_rem_pio2(x:Array[Double,3], y:Array[Double,2], e0, nx, prec) {
 	    	q[i] = fw;
 	}
 
-	var jz,z = jk,0.;
+	var jz,z = jk,0.0;
 recompute:
     // distill q[] into iq[] reversingly 
 	j = jz;
@@ -299,7 +299,7 @@ recompute:
     // compute PIo2[0,...,jp]*q[jz,...,0] 
 	i = jz;
 	while(i >= 0) {
-	    fw = 0.;
+	    fw = 0.0;
 	    var k = 0;
 	    while(k<=jp and k<=jz-i) {
 	     	fw +: PIo2[k]*q[i+k];

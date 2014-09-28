@@ -15,7 +15,7 @@ overload exp(a:Double) : Double { // default IEEE double exp
 	alias o_threshold	= 7.09782712893383973096e+02;// 0x40862E42, 0xFEFA39EF 
 	alias u_threshold 	= -7.45133219101941108420e+02;  // 0xc0874910, 0xD52D3051 
 	alias TWOM1000 = 9.33263618503218878990e-302;     // 2**-1000=0x01700000,0
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HUGE = GreatestPositiveFinite(Double);
 	alias TINY = LeastPositive(Double);
 
@@ -29,14 +29,14 @@ overload exp(a:Double) : Double { // default IEEE double exp
 	        if(bitor(bitand(GET_IEEE_HIGH(xdb),0xfffff),GET_IEEE_LOW(xdb))!=0)
 		    	return a+a; 		// NaN 
 			else 
-				return if(xsb==0) a else 0.;	// exp(+-inf)={inf,0} 
+				return if(xsb==0) a else 0.0;	// exp(+-inf)={inf,0} 
 	    }
 	    if(a > o_threshold) return HUGE*HUGE; // overflow 
 	    if(a < u_threshold) return TWOM1000*TWOM1000; // underflow 
 	}
 
     // argument reduction 
-	var x,hi,lo,k = a,0.,0.,0;
+	var x,hi,lo,k = a,0.0,0.0,0;
 	if(GET_IEEE_HIGH(xdb) > CV15) {		// if  |x| > 0.5 ln2  
 	    if(GET_IEEE_HIGH(xdb) < CV16) {	// and |x| < 1.5 ln2 
 			hi = x-ln2HI[xsb]; 
@@ -91,7 +91,7 @@ overload exp(a:Float) : Float {
 	alias FP2 = -2.7667332906e-3f;		// -0xb55215.0p-32 
 	alias FTWOM1000 = 7.8886090522e-31f;      // 2**-100=0x0d800000 
 	alias HUGE = GreatestPositiveFinite(Float);
-	alias ONE = 1.f;
+	alias ONE = 1.0f;
 	var hx = GET_FLOAT_WORD(a);
 	var xsb = wrapCast(Int32,bitand(bitshr(hx,31),1));		// sign bit of x 
 	hx = bitand(hx,0x7fffffff);		// high word of |x| 
@@ -101,14 +101,14 @@ overload exp(a:Float) : Float {
 	    if(hx>0x7f800000) 
 	    	return a+a;	 		// NaN 
         if(hx==0x7f800000) 
-        	return if(xsb == 0) a else 0.f;// exp(+-inf)={inf,0} 
+        	return if(xsb == 0) a else 0.0f;// exp(+-inf)={inf,0} 
 	    if(a > fo_threshold) 
 	    	return HUGE*HUGE; // overflow 
 	    if(a < fu_threshold) 
 	    	return FTWOM1000*FTWOM1000; // underflow 
 	}
 
-	var x,nx,hi,lo,k = a,0.f,0.f,0.f,0;
+	var x,nx,hi,lo,k = a,0.0f,0.0f,0.0f,0;
     // argument reduction 
 	if(hx > 0x3eb17218) {		// if  |x| > 0.5 ln2 
 	    if(hx < 0x3F851592) {	// and |x| < 1.5 ln2 
@@ -130,7 +130,7 @@ overload exp(a:Float) : Float {
 
 	
     // x is now in primary range 
-	var t,twopk  = x*x,0.f;
+	var t,twopk  = x*x,0.0f;
 	if(k >= -125)
 	    twopk = SET_FLOAT_WORD(0x3f800000+bitshl(k,23));
 	else

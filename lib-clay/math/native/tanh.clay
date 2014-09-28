@@ -9,8 +9,8 @@ import complex.*;
 overload tanh(x:Float) = Float(tanh(Double(x)));
 
 overload tanh(x:Double) {
-	alias ONE = 1.;
-	alias TWO = 2.;
+	alias ONE = 1.0;
+	alias TWO = 2.0;
 	alias HUGE = GreatestPositiveFinite(Double);
 	alias TINY = LeastPositive(Double);
 
@@ -23,7 +23,7 @@ overload tanh(x:Double) {
 	if(ix>=EM)
 	    return if (jx>=0)  ONE/x+ONE else ONE/x-ONE;    // tanh(+/-inf)=+-1 or tanh(NaN) = NaN
 
-	var z = 0.;
+	var z = 0.0;
 
     // |x| < 22 
 	if (ix < 0x40360000) {		// |x|<22 
@@ -72,7 +72,7 @@ overload tanh(z:ComplexDouble) {
 			return Complex(x, (if(y == 0) y else x * y));
 		SET_IEEE_HIGH(xdb,GET_IEEE_HIGH(xdb) - 0x40000000);
 		x = GET_IEEE_DB(xdb);	// x = copysign(1, x) 
-		return Complex(x, copysign(0., if(infinity?(y)) y else sin(y) * cos(y)));
+		return Complex(x, copysign(0.0, if(infinity?(y)) y else sin(y) * cos(y)));
 	}
 
 	// ctanh(x + i NAN) = NaN + i NaN
@@ -87,7 +87,7 @@ overload tanh(z:ComplexDouble) {
 	 
 	if (ix >= 0x40360000) {	// x >= 22 
 		var exp_mx = exp(-abs(x));
-		return Complex(copysign(1., x),
+		return Complex(copysign(1.0, x),
 		    4 * sin(y) * cos(y) * exp_mx * exp_mx);
 	}
 

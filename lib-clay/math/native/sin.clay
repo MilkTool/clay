@@ -18,7 +18,7 @@ overload sin(x:Double) {
 	    if(ix<0x3e500000)			// |x| < 2**-26 
 	       	if(wrapCast(Int32,x) == 0) return x;
 	    	// generate inexact 
-	    return kernel_sin(x,0.,0);
+	    return kernel_sin(x,0.0,0);
 	}
 
     // sin(Inf or NaN) is NaN 

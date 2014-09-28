@@ -28,8 +28,8 @@ kernel_cos(x, y) {
 	var w  = z*z;
 	var r  = z*(C1+z*(C2+z*C3)) + w*w*(C4+z*(C5+z*C6));
 	var hz = 0.5*z;
-	w  = 1.-hz;
-	return w + (((1.-w)-hz) + (z*r-x*y));
+	w  = 1.0-hz;
+	return w + (((1.0-w)-hz) + (z*r-x*y));
 }
 
 private var ta = array(
@@ -56,7 +56,7 @@ private var  pio4 = ta[14];
 private var  pio4lo = ta[15];
 
 kernel_tan(tx, ty, iy) {
-	var z,w,x,y = 0.,0.,tx,ty;
+	var z,w,x,y = 0.0,0.0,tx,ty;
 	var hx = GET_IEEE_HIGH(x);
 	var ix = bitand(hx , MM);			// high word of |x|
 	if (ix >= 0x3FE59428) {	// |x| >= 0.6744

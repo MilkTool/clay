@@ -13,7 +13,7 @@ overload nextafter(x:Double, y:Double){
 
     if(x == y) return x;
     if(nan?(x) or nan?(y)) return nan(Double);
-    if(x == 0.) // x == 0 so return +-minsubnormal
+    if(x == 0.0) // x == 0 so return +-minsubnormal
         return if(signbit(y) == 1) -MIN_SUB else MIN_SUB;// raise underflow flag
     if(GET_IEEE_HIGH(xdb) >= 0)
         if(GET_IEEE_HIGH(xdb) > GET_IEEE_HIGH(ydb) or (GET_IEEE_HIGH(xdb) 

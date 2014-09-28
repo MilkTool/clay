@@ -17,7 +17,7 @@ rem_pio2(x:Double, y:Pointer[Double]) {
 	var tx,ty = Array[Double,3](),Array[Double,2]();
 	var xdb = MAKE_IEEE(x);		// high word of x 
 	var ix = bitand(GET_IEEE_HIGH(xdb),0x7fffffff);
-	var z = 0.;
+	var z = 0.0;
 	if (ix <= 0x400f6a7a) {		// |x| ~<= 5pi/4 
 	    if (bitand(ix , NEM) == 0x921fb) {  // |x| ~= pi/2 or 2pi/2 
 			med = true;
@@ -142,7 +142,7 @@ medium:
 	z     = (z-tx[1])*two24;
 	tx[2] = z;
 	var nx = 3;
-	while(tx[nx-1]==0.) dec(nx);	// skip zero term 
+	while(tx[nx-1]==0.0) dec(nx);	// skip zero term 
 	var n  =  k_rem_pio2(tx,ty,e0,nx,1);
 	if(GET_IEEE_HIGH(xdb)<0) {
 		y[0] = -ty[0]; 

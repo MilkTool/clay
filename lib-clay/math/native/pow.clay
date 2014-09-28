@@ -25,14 +25,14 @@ overload pow(x:Double, y:Double) : Double {
 	alias lg2_h  =  6.93147182464599609375e-01; // 0x3FE62E43, 0x00000000 
 	alias lg2_l  = -1.90465429995776804525e-09; // 0xBE205C61, 0x0CA86C39 
 	alias ovt =  8.0085662595372944372e-0017; // -(1024-log2(ovfl+.5ulp)) 
+	alias ZERO = 0.0;
 	alias cp    =  9.61796693925975554329e-01; // 0x3FEEC709, 0xDC3A03FD =2/(3ln2) 
 	alias cp_h  =  9.61796700954437255859e-01; // 0x3FEEC709, 0xE0000000 =(float)cp 
 	alias cp_l  = -7.02846165095275826516e-09; // 0xBE3E2FE0, 0x145B01F5 =tail of cp_h
 	alias ivln2_h  =  1.44269502162933349609e+00; // 0x3FF71547, 0x60000000 =24b 1/ln2
 	alias ivln2_l  =  1.92596299112661746887e-08; // 0x3E54AE0B, 0xF85DDF44 =1/ln2 tail
-	alias ZERO = 0.;
-	alias ONE = 1.;
-	alias TWO = 2.;
+	alias ONE = 1.0;
+	alias TWO = 2.0;
 	alias HUGE_OVERFLOW = GreatestPositiveFinite(Double)*GreatestPositiveFinite(Double);
 	alias TINY_OVERFLOW = LeastPositive(Double)*LeastPositive(Double);
 
@@ -122,7 +122,7 @@ overload pow(x:Double, y:Double) : Double {
 	var s = ONE; // s (sign of result -ve**odd) = -1 else = 1 
 	if(bitor(n,yisint-1)==0) s = -ONE;// (-ve)**(odd int) 
 
-	var k,u,w,t,v,t1,t2 = 0,0.,0.,0.,0.,0.,0.;
+	var k,u,w,t,v,t1,t2 = 0,0.0,0.0,0.0,0.0,0.0,0.0;
     
     // |y| is huge 
 	if(iy > CV4) { // if |y| > 2**31 
@@ -287,7 +287,7 @@ overload pow(a:T, z:U){
         return T();
     var r = pow(absa, real(z));
     var theta = real(z) * arg(a);
-    if (imag(z) != 0.){
+    if (imag(z) != 0.0){
         r = r * exp (-imagValue(z) * arg(a));
         theta = theta + imagValue(z) * log(absa);
     }

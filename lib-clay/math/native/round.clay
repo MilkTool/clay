@@ -4,8 +4,8 @@ import math.native.protocol.*;
 
 private alias DHUGE = GreatestPositiveFinite(Double);
 private alias FHUGE = GreatestPositiveFinite(Float);
-private alias DZERO = 0.ff;
-private alias FZERO = 0.f;
+private alias DZERO = 0.0ff;
+private alias FZERO = 0.0f;
 
 [T when Float?(T)]
 round(x:T) --> t:T {

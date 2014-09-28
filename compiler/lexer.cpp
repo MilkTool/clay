@@ -475,8 +475,12 @@ static bool exponentPart() {
 }
 
 static bool fractionalPart() {
+    int x;
     char c;
     if (!next(c) || (c != '.')) return false;
+    const char *p = save();
+    if (!decimalDigit(x)) return false;
+    restore(p);
     return decimalDigits();
 }
 
@@ -490,8 +494,12 @@ static bool hexExponentPart() {
 }
 
 static bool hexFractionalPart() {
+    int x;
     char c;
     if (!next(c) || (c != '.')) return false;
+    const char *p = save();
+    if (!hexDigit(x)) return false;
+    restore(p);
     return hexDigits();
 }
 

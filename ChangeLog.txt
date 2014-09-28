@@ -275,7 +275,7 @@ Library changes:
 
     // 0.2
     foo() {
-        return 3./2., 3\2; // 1.5, 1
+        return 3.0/2.0, 3\2; // 1.5, 1
     }
 
   Thanks to Jeremy Clifford.

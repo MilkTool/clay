@@ -16,7 +16,7 @@ define log2;
 overload log2(x:Float) = Float(log2(Double(x)));
 
 overload log2(x:Double) {
-	alias ZERO = 0.;
+	alias ZERO = 0.0;
 	var xdb = MAKE_IEEE(x);
 	var k = 0;
 	if (GET_IEEE_HIGH(xdb) < 0x00100000) {			// x < 2**-1022  

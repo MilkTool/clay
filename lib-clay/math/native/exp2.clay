@@ -309,7 +309,7 @@ overload exp2(x:Double) {
 	// Compute r = exp2(y) = exp2t[i0] * p(z - eps[i]). 
 	t = tbl[i0];		// exp2t[i0] 
 	z -: tbl[i0 + 1];	// eps[i0]   
-	var twopk = 0.;
+	var twopk = 0.0;
 	var kcmp = k >= bitshl(-1021 , 20);
 	if (kcmp)
 		twopk = MAKE_IEEE(RM + k, 0).2;

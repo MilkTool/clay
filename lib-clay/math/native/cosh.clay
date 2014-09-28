@@ -8,7 +8,7 @@ import complex.*;
 overload cosh(x:Float) = Float(cosh(Double(x)));
 
 overload cosh(x:Double) {
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HALF = 0.5;
 	alias HUGE = GreatestPositiveFinite(Double);
 
@@ -69,7 +69,7 @@ overload cosh(z:ComplexDouble) {
 		} else if (ix < 0x4096bbaa) {
 			// x < 1455: scale to avoid overflow 
 			z = __ldexp_cexp(Complex(abs(x), y), -1);
-			return Complex(real(z), imagValue(z) * copysign(1., x));
+			return Complex(real(z), imagValue(z) * copysign(1.0, x));
 		} else {
 			// x >= 1455: the result always overflows 
 			var h = GreatestPositiveFinite(Double) * x;
@@ -86,7 +86,7 @@ overload cosh(z:ComplexDouble) {
 	// the same as d(NaN).
 	 
 	if (bitor(ix , GET_IEEE_LOW(xdb)) == 0 and iy >= EM)
-		return Complex(y - y, copysign(0., x * (y - y)));
+		return Complex(y - y, copysign(0.0, x * (y - y)));
 
 	// cosh(+-Inf +- I 0) = +Inf + I (+-)(+-)0.
 	// cosh(NaN +- I 0)   = d(NaN) + I sign(d(NaN, +-0))0.
@@ -94,8 +94,8 @@ overload cosh(z:ComplexDouble) {
 	 
 	if (bitor(iy , GET_IEEE_LOW(ydb)) == 0 and ix >= EM) {
 		if (bitor(bitand(GET_IEEE_HIGH(xdb) , 0xfffff) , GET_IEEE_LOW(xdb)) == 0)
-			return Complex(x * x, copysign(0., x) * y);
-		return Complex(x * x, copysign(0., (x + x) * y));
+			return Complex(x * x, copysign(0.0, x) * y);
+		return Complex(x * x, copysign(0.0, (x + x) * y));
 	}
 
 	// cosh(x +- I Inf) = dNaN + I dNaN.

@@ -60,7 +60,7 @@ forceinline overload (>=)(a:T, b:C) = (>=)(a, real(b));
 forceinline overload (>=)(a:C, b:C) = (>=)(real(a), real(b));
 
 [T when Complex?(T)]
-overload zero?(z:T) = real(z) == 0. and imag(z) == 0.j;
+overload zero?(z:T) = real(z) == 0.0 and imag(z) == 0.0j;
 
 /// @section  unary ops 
 
@@ -112,11 +112,11 @@ forceinline overload (/)(z:T, y:U) {
     alias rz = real(z);
     if(abs(ry) < abs(iy)){
         var rat = ry / iy;
-        var den = 1./(rat*ry+iy);
+        var den = 1.0/(rat*ry+iy);
         return Complex((rat*rz+iz) * den, (rat*iz-rz) * den);
     }else{
         var rat = iy / ry;
-        var den = 1./(rat*iy+ry);
+        var den = 1.0/(rat*iy+ry);
         return Complex((rat*iz+rz) * den, (-rat*rz+iz) * den);
     }
 }

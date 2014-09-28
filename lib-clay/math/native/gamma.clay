@@ -77,8 +77,8 @@ alias w6  = -1.63092934096575273989e-03; // 0xBF5AB89D, 0x0B9E43E4
 
 
 lgamma_r(xarg:Double, signgamp:Pointer[Int]) {
-	alias ONE = 1.;
-	alias ZERO = 0.;
+	alias ONE = 1.0;
+	alias ZERO = 0.0;
 	alias HALF = 0.5;
 
 	var x = xarg;

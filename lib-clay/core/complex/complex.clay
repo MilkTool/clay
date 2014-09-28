@@ -58,10 +58,10 @@ forceinline overload Complex(a:LongDouble,b:Float) : Complex80 = Complex(a, nume
 forceinline overload Complex(a:LongDouble,b:Double) : Complex80 = Complex(a, numericConvert(ILongDouble,b));
 
 [T when Float?(T)]
-forceinline overload Complex(a:T) = Complex(a,0.f);
+forceinline overload Complex(a:T) = Complex(a,0.0f);
 
 [T when Imaginary?(T)]
-forceinline overload Complex(a:T) = Complex(0.f,a);
+forceinline overload Complex(a:T) = Complex(0.0f,a);
 
 [C when Complex?(C)]
 define ComplexBaseType(#C);
@@ -95,7 +95,7 @@ overload ComplexType(#T) = T;
 overload ComplexType(#T) = Type(Complex(T()));
 
 [T when Complex?(T)]
-overload T() : T = T(0.);
+overload T() : T = T(0.0);
 
 [C,T when Complex?(C,T) and C != T]
 forceinline overload C(a:T) : C = Complex(ComplexBaseType(C)(real(a)), ComplexBaseType(C)(imag(a)));

@@ -6,10 +6,10 @@ import math.native.protocol.*;
 overload log1p(x:Float) = Float(log1p(Double(x)));
 
 overload log1p(x:Double) {
-	alias ZERO = 0.;
+	alias ZERO = 0.0;
 	alias HALF = 0.5;
-	alias ONE = 1.;
-	alias MONE = -1.;
+	alias ONE = 1.0;
+	alias MONE = -1.0;
 
 	var ix = MAKE_IEEE(x);
 	var ax = bitand(GET_IEEE_HIGH(ix),MM);
@@ -64,7 +64,7 @@ overload log1p(x:Double) {
 	    f = u-ONE;
 	}
 	
-	var hfsq,R = HALF*f*f, 0.;
+	var hfsq,R = HALF*f*f, 0.0;
 	if(hu==0) {	// |f| < 2**-20 
 	    if(f==ZERO) {
 			if(k==0) {

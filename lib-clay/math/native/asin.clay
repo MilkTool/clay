@@ -22,9 +22,9 @@ alias qS4 =  7.70381505559019352791e-02; // 0x3FB3B8C5, 0xB12E9282
 
 
 overload asin(x:Double) {
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	alias HUGE = GreatestPositiveFinite(Double);
-	var t=0.;
+	var t=0.0;
 	var hx = GET_IEEE_HIGH(x);
 	var ix = bitand(hx,MM);
 	if(ix>= RM) {		// |x|>= 1 

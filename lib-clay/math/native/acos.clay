@@ -22,7 +22,7 @@ alias qS4 =  7.70381505559019352791e-02; // 0x3FB3B8C5, 0xB12E9282
 
 
 overload acos(x:Double) {
-	alias ONE = 1.;
+	alias ONE = 1.0;
 	var hx = GET_IEEE_HIGH(x);
 	var ix = bitand(hx,MM);
 	if(ix>=RM) {	// |x| >= 1 
@@ -33,7 +33,7 @@ overload acos(x:Double) {
 	    }
 	    return nan(Double);		// acos(|x|>1) is NaN 
 	}
-	var z,p,q,r,s,w = 0.,0.,0.,0.,0.,0.;
+	var z,p,q,r,s,w = 0.0,0.0,0.0,0.0,0.0,0.0;
 	if(ix<0x3fe00000) {	// |x| < 0.5 
 	    if(ix<=0x3c600000) return pio2_hi+pio2_lo;//if|x|<2**-57
 	    z = x*x;

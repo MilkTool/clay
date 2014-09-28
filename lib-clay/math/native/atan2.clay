@@ -13,8 +13,8 @@ overload atan2(y:Float, x:Float) = Float(atan2(Double(y), Double(x)));
 
 
 overload atan2(y:Double, x:Double) {
-	alias ONE = 1.;
-	alias ZERO = 0.;
+	alias ONE = 1.0;
+	alias ZERO = 0.0;
 	alias TINY = LeastPositive(Double);
 	var xdb = MAKE_IEEE(x);
 	var ydb = MAKE_IEEE(y);
@@ -60,8 +60,8 @@ overload atan2(y:Double, x:Double) {
 	if(iy==0x7ff00000) return if(GET_IEEE_HIGH(ydb)<0) -pi_o_2-TINY else pi_o_2+TINY;
 	
     // compute y/x 
+	var z = 0.0;
 	var k = bitshr(iy-ix,20);
-	var z = 0.;
 	if(k > 60) {		 	// |y/x| >  2**60 
 	    z = pi_o_2+0.5*pi_lo;
 	    m = bitand(m,1);

@@ -5,8 +5,8 @@ import math.native.protocol.*;
 import numbers.floats.(nan?,nan,infinity);
 
 overload hypot(x:Double, y:Double) : Double {
-	alias ZERO = 0.;
-	alias ONE = 1.;
+	alias ZERO = 0.0;
+	alias ONE = 1.0;
 	var ha = GET_IEEE_HIGH(x);
 	ha = bitand(ha,MM);
 	var hb = GET_IEEE_HIGH(y);
@@ -70,8 +70,8 @@ overload hypot(x:Double, y:Double) : Double {
 }
 
 overload hypot(x:Float, y:Float) : Float {
-	alias ZERO = 0.f;
-	alias ONE = 1.f;
+	alias ZERO = 0.0f;
+	alias ONE = 1.0f;
 	var ha = GET_FLOAT_WORD(x);
 	ha = bitand(ha,MM);
 	var hb = GET_FLOAT_WORD(y);
