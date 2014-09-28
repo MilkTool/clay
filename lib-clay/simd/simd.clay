@@ -228,5 +228,5 @@ forceinline overload Vec[T,n](v: Vec[U,m]) = bitcast(Vec[T,n], v);
 define componentMask;
 [T when Integer?(T)]
 forceinline overload componentMask(#T) = wrapCast(T, -1);
-forceinline overload componentMask(#Float32) = bitcast(Float32, -1_i);
-forceinline overload componentMask(#Float64) = bitcast(Float64, -1_l);
+forceinline overload componentMask(#Float32) = bitcast(Float32, -1i);
+forceinline overload componentMask(#Float64) = bitcast(Float64, -1l);

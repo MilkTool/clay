@@ -21,7 +21,7 @@ TEST_ArrayRef() {
 
 TEST_indexing() {
     var b = array(..integers(#256));
-    expectEqual(224, b[224_uss]);
+    expectEqual(224, b[224uss]);
 }
 
 TEST_array_from_single_non_copyable() {

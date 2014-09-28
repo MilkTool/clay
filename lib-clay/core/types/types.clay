@@ -112,36 +112,36 @@ forceinline returnTypesToValues(..a) = forward ..mapValues(returnTypeToValue, ..
 define Least;
 define Greatest;
 
-forceinline overload Least(#Int8) : Int8 = -128_ss;
-forceinline overload Greatest(#Int8) : Int8 = 127_ss;
+forceinline overload Least(#Int8) : Int8 = -128ss;
+forceinline overload Greatest(#Int8) : Int8 = 127ss;
 
-forceinline overload Least(#UInt8) : UInt8 = 0_uss;
-forceinline overload Greatest(#UInt8) : UInt8 = 255_uss;
+forceinline overload Least(#UInt8) : UInt8 = 0uss;
+forceinline overload Greatest(#UInt8) : UInt8 = 255uss;
 
-forceinline overload Least(#Int16) : Int16 = -0x8000_s;
-forceinline overload Greatest(#Int16) : Int16 = 0x7FFF_s;
+forceinline overload Least(#Int16) : Int16 = -0x8000s;
+forceinline overload Greatest(#Int16) : Int16 = 0x7FFFs;
 
-forceinline overload Least(#UInt16) : UInt16 = 0_us;
-forceinline overload Greatest(#UInt16) : UInt16 = 0xFFFF_us;
+forceinline overload Least(#UInt16) : UInt16 = 0us;
+forceinline overload Greatest(#UInt16) : UInt16 = 0xFFFFus;
 
-forceinline overload Least(#Int32) : Int32 = -0x8000_0000_i;
-forceinline overload Greatest(#Int32) : Int32 = 0x7FFF_FFFF_i;
+forceinline overload Least(#Int32) : Int32 = -0x8000_0000i;
+forceinline overload Greatest(#Int32) : Int32 = 0x7FFF_FFFFi;
 
-forceinline overload Least(#UInt32) : UInt32 = 0_u;
-forceinline overload Greatest(#UInt32) : UInt32 = 0xFFFF_FFFF_u;
+forceinline overload Least(#UInt32) : UInt32 = 0u;
+forceinline overload Greatest(#UInt32) : UInt32 = 0xFFFF_FFFFu;
 
-forceinline overload Least(#Int64) : Int64 = -0x8000_0000_0000_0000_l;
-forceinline overload Greatest(#Int64) : Int64 = 0x7FFF_FFFF_FFFF_FFFF_l;
+forceinline overload Least(#Int64) : Int64 = -0x8000_0000_0000_0000l;
+forceinline overload Greatest(#Int64) : Int64 = 0x7FFF_FFFF_FFFF_FFFFl;
 
-forceinline overload Least(#UInt64) : UInt64 = 0_ul;
-forceinline overload Greatest(#UInt64) : UInt64 = 0xFFFF_FFFF_FFFF_FFFF_ul;
+forceinline overload Least(#UInt64) : UInt64 = 0ul;
+forceinline overload Greatest(#UInt64) : UInt64 = 0xFFFF_FFFF_FFFF_FFFFul;
 
-forceinline overload Least(#Int128) : Int128 = wrapBitshl(1_ll, 127);
+forceinline overload Least(#Int128) : Int128 = wrapBitshl(1ll, 127);
 forceinline overload Greatest(#Int128) : Int128
     = numericSubtract(Least(Int128), 1ll);
 
-forceinline overload Least(#UInt128) : UInt128 = 0_ull;
-forceinline overload Greatest(#UInt128) : UInt128 = numericSubtract(0_ull, 1_ull);
+forceinline overload Least(#UInt128) : UInt128 = 0ull;
+forceinline overload Greatest(#UInt128) : UInt128 = numericSubtract(0ull, 1ull);
 
 
 /// @section  float limits 

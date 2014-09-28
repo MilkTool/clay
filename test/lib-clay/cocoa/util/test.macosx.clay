@@ -274,7 +274,6 @@ main() = withAutoreleasePool(() => testMain(TestSuite("cocoa.util", array(
             // s gets released here, so setBar had better have retained it
         }
         expectEqual(27, x.foo());
-        expectEqual(27_l, x.foo64());
         expectEqual(NSUInteger(1), x.bar().retainCount());
         expectEqual("catch-22", x.bar());
         expectEqual(true, x.isBas());
