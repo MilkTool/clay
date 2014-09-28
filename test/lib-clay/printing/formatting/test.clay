@@ -34,37 +34,37 @@ main() = testMain(
             expectEqual(2, printedWidth(-9));
             expectEqual(3, printedWidth(-10));
             expectEqual(
-                20, printedWidth(18446744073709551615_ul)
+                20, printedWidth(18446744073709551615ul)
             );
             expectEqual(
-                20, printedWidth(10000000000000000000_ul)
+                20, printedWidth(10000000000000000000ul)
             );
             expectEqual(
-                19, printedWidth(9999999999999999999_ul)
+                19, printedWidth(9999999999999999999ul)
             );
             expectEqual(
-                19, printedWidth(9223372036854775807_l)
+                19, printedWidth(9223372036854775807l)
             );
             expectEqual(
-                19, printedWidth(1000000000000000000_l)
+                19, printedWidth(1000000000000000000l)
             );
             expectEqual(
-                18, printedWidth(999999999999999999_l)
+                18, printedWidth(999999999999999999l)
             );
             expectEqual(
-                20, printedWidth(-9223372036854775807_l)
+                20, printedWidth(-9223372036854775807l)
             );
             expectEqual(
-                20, printedWidth(-1000000000000000000_l)
+                20, printedWidth(-1000000000000000000l)
             );
             expectEqual(
-                19, printedWidth(-999999999999999999_l)
+                19, printedWidth(-999999999999999999l)
             );
             expectEqual(
-                3, printedWidth(111_uss)
+                3, printedWidth(111uss)
             );
             expectEqual(
-                3, printedWidth(-43_ss)
+                3, printedWidth(-43ss)
             );
 
             expectEqual(1, printedWidth(hex(0)));
@@ -75,25 +75,25 @@ main() = testMain(
             expectEqual(2, printedWidth(hex(-0xf)));
             expectEqual(3, printedWidth(hex(-0x10)));
             expectEqual(
-                16, printedWidth(hex(0xffffffffffffffff_ul))
+                16, printedWidth(hex(0xfffffffffffffffful))
             );
             expectEqual(
-                16, printedWidth(hex(0x7fffffffffffffff_l))
+                16, printedWidth(hex(0x7fffffffffffffffl))
             );
             expectEqual(
-                16, printedWidth(hex(0x1000000000000000_l))
+                16, printedWidth(hex(0x1000000000000000l))
             );
             expectEqual(
-                15, printedWidth(hex(0xfffffffffffffff_l))
+                15, printedWidth(hex(0xfffffffffffffffl))
             );
             expectEqual(
-                17, printedWidth(hex(-0x7fffffffffffffff_l))
+                17, printedWidth(hex(-0x7fffffffffffffffl))
             );
             expectEqual(
-                17, printedWidth(hex(-0x1000000000000000_l))
+                17, printedWidth(hex(-0x1000000000000000l))
             );
             expectEqual(
-                16, printedWidth(hex(-0xfffffffffffffff_l))
+                16, printedWidth(hex(-0xfffffffffffffffl))
             );
         }),
         TestCase("leftAligned/rightAligned", -> {
@@ -133,7 +133,7 @@ main() = testMain(
         TestCase("hexString", -> {
             expectPrinted(
                 "00ff0f",
-                hexString(array(0_uss, 0xFF_uss, 0x0F_uss)),
+                hexString(array(0uss, 0xFFuss, 0x0Fuss)),
             );
         }),
         TestCase("UniChar is printed as sequence of UTF-8 bytes", -> {

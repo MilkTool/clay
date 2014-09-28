@@ -1,7 +1,7 @@
 import printer.(println);
 main() {
     var x = array(1, 2, 3);
-    var y = array(4_ul, 5_ul, 6_ul);
+    var y = array(4ul, 5ul, 6ul);
     var z = array(7, 8, 9);
 
     x = z;

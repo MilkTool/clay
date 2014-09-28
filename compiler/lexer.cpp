@@ -378,11 +378,14 @@ static bool stringToken(Token &x) {
 // integer tokens
 //
 
-static void optNumericSeparator() {
+static bool optNumericSeparator() {
     const char *p = save();
     char c;
-    if (!next(c) || (c != '_'))
+    if (!next(c) || (c != '_')) {
         restore(p);
+	return false;
+    }
+    return true;
 }
 
 static bool decimalDigits() {
@@ -421,14 +424,18 @@ static bool hexInt() {
 static bool decimalInt() {
     int x;
     if (!decimalDigit(x)) return false;
+
+    bool trailingSep;
     while (true) {
-        optNumericSeparator();
+	if (optNumericSeparator()) trailingSep = true;
         const char *p = save();
         if (!decimalDigit(x)) {
             restore(p);
             break;
         }
+	trailingSep = false;
     }
+    if (trailingSep) return false;
     return true;
 }
 
