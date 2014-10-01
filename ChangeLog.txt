@@ -4,6 +4,21 @@
 
 Language changes:
 -----------------
+* Floating-point literals require digits on both sides of the point (.).
+  By requiring digits on both sides of a point (.), the literal numeral should
+  be more eligible.
+    // 0.2
+    var f = 0.0;
+    // 0.1
+    var f = 0.;
+
+* Integer literals cannot terminate with the seperator (underscore) character.
+  An effort to improve the eligibility of Clay.
+    // 0.2
+    var i = 1_000;
+    // 0.1
+    var i = 1_000_;
+
 * A new 'with' statement provides syntactic sugar for monadic control flow.
   Within a block, the subsequent statements after a 'with' statement are
   passed as a capture-by-value lambda to the function specified as the 'with'
