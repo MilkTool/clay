@@ -342,21 +342,16 @@ static bool singleQuoteStringToken(Token &x) {
     return true;
 }
 
-static bool stringToken(Token &x) {
+static bool rawStringToken(Token &x) {
     const char *p = save();
     char c;
-    if (!next(c) || (c != '"')) return false;
-    if (!next(c) || (c != '"') || !next(c) || (c != '"')) {
-        restore(p);
-        return singleQuoteStringToken(x);
-    }
     x.tokenKind = T_STRING_LITERAL;
     x.str.clear();
     while (true) {
         p = save();
-        if (next(c) && (c == '"')
-            && next(c) && (c == '"')
-            && next(c) && (c == '"'))
+        if (next(c) && (c == '"') &&
+	    next(c) && (c == '"') &&
+	    next(c) && (c == '"'))
         {
             const char *q = save();
             if (!next(c) || c != '"') {
@@ -364,12 +359,23 @@ static bool stringToken(Token &x) {
                 break;
             }
         }
-
         restore(p);
-        if (!oneChar(c)) return false;
+	if (!next(c)) return false;
         x.str.push_back(c);
     }
     return true;
+}
+
+static bool stringToken(Token &x) {
+    const char *p = save();
+    char c;
+    if (!next(c) || (c != '"')) return false;
+    if (!next(c) || (c != '"') || !next(c) || (c != '"')) {
+        restore(p);
+        return singleQuoteStringToken(x);
+    } else {
+	return rawStringToken(x);
+    }
 }
 
 
