@@ -162,15 +162,14 @@ Character literals represent a single ASCII character. Syntactically, they consi
 
     # Grammar
     StringToken -> "\"" StringChar* "\""
-                 | "\"\"\"" TripleStringChar* "\"\"\""
+                 | "\"\"\"" RawText "\"\"\""
 
     StringChar -> /[^\\"]/
                 | EscapeCode
 
-    TripleStringChar -> /(?!=""" ([^"]|$)) [^\\]/
-                      | EscapeCode
+    RawText -> /^(?!""")[^"]*"*$/s
 
-String literals represent a sequence of ASCII text. Syntactically, they consist of zero or more characters or escape codes as described for [character literals](#characterliterals), delimited by either matching `"` characters or by matching `"""` sequences. Within `"`-delimited strings, the characters `"` and `\` must be escaped, whereas in `"""`-delimited strings, only `\` need be escaped. (The sequence `"""` may be escaped by escaping one or more of the `"` characters.) Whitespace within string literals is significant, including newlines.
+String literals represent a sequence of ASCII text. Syntactically, they consist of zero or more characters or escape codes as described for [character literals](#characterliterals), delimited by either matching `"` characters or by matching `"""` sequences. Within `"`-delimited strings, the characters `"` and `\` must be escaped, whereas `"""`-delimited strings are [Raw Strings](https://en.wikipedia.org/wiki/String_literal#Raw_strings): nothing cannot be escaped, including the delimiter. Whitespace within string literals is significant, including newlines.
 
     // Examples of string literals
     "hello world"  "\"hello world\""
@@ -183,6 +182,8 @@ String literals represent a sequence of ASCII text. Syntactically, they consist 
     "Which is it then?"
     "I'm not sure."
     """
+
+    """SELECT `a` FROM `b` WHERE `c` = "d";"""
 
 ### <a name="compilationstrategy"></a>Compilation strategy
 

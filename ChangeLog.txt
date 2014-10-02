@@ -4,6 +4,13 @@
 
 Language changes:
 -----------------
+* Reimplement the Triple-Quote string (""") as a Raw String.
+  As a raw string, nothing will be escaped, including the delimiter. Therefore,
+  whitespace is significant.
+    // example
+    """
+    """ == "\n" // true
+
 * Floating-point literals require digits on both sides of the point (.).
   By requiring digits on both sides of a point (.), the literal numeral should
   be more eligible.
