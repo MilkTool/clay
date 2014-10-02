@@ -360,7 +360,6 @@ string
 
     """""";
     """triple "quoted" string""";
-    """triple \""" quoted string""";
     """"triple quoted string"""";
 
     "zim";

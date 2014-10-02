@@ -82,7 +82,7 @@ main() = testMain(
             testWithEval("'\\\"'");
 
             testWithEval("\"x ~\\x01\\x1F\\x7F\\x80\\xFF\"");
-            testWithEval(""""\\0\\n\\r\\t\\f\\'\\""""");
+            testWithEval(""""\0\n\r\t\f\'\""""");
         }),
         TestCase("tuples", -> {
             testWithEval("""[]""");
@@ -116,9 +116,9 @@ main() = testMain(
             testWithEval("""StringRef()""");
         }),
         TestCase("stringRepr", -> {
-            expectPrinted(""""abc\\r\\n\\""""", stringRepr("abc\r\n\""));
-            expectPrinted(""""abc\\r\\n\\""""", stringRepr(String"abc\r\n\""));
-            expectPrinted(""""abc\\r\\n\\""""", stringRepr(StringLiteralRef"abc\r\n\""));
+            expectPrinted(""""abc\r\n\""""", stringRepr("abc\r\n\""));
+            expectPrinted(""""abc\r\n\""""", stringRepr(String"abc\r\n\""));
+            expectPrinted(""""abc\r\n\""""", stringRepr(StringLiteralRef"abc\r\n\""));
         }),
         TestCase("ArrayRef", -> {
             testWithEval("""ArrayRef[Int32]""");
