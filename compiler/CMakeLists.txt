@@ -104,7 +104,7 @@ install(TARGETS claydoc RUNTIME DESTINATION bin)
 
 target_link_libraries(clay compiler ${LLVM_LIBS})
 target_link_libraries(claydoc compiler ${LLVM_LIBS})
-target_link_libraries(ut compiler ${LLVM_LIBS})
+target_link_libraries(ut compiler "${LLVM_LIBS} ${LLVM_LDFLAGS}")
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(clay "rt")
