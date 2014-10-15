@@ -121,7 +121,7 @@ convertPointerType(type:CXType, refCursor:CXCursor) : String {
         } else if (decl.kind != CXCursor_NoDeclFound) {
             return str("Pointer[", convertTypeFromDeclaration(decl), "]");
         } else {
-            return "OpaquePointer";
+            return str("OpaquePointer");
         }
     }
     case (CXType_Typedef) {
@@ -141,7 +141,7 @@ convertTypeFromDeclaration(declaration:CXCursor) : String {
     case (CXCursor_TypedefDecl)
         return clayIdentifier(str(clang_getCursorSpelling(declaration)));
     else
-        return "Opaque";
+        return str("Opaque");
 }
 
 convertType(type:CXType, refCursor:CXCursor) : String {
@@ -188,7 +188,7 @@ convertType(type:CXType, refCursor:CXCursor) : String {
         case (CXType_Double)
             return str("CComplexDouble");
         else
-            return "Opaque";
+            return str("Opaque");
     }
     case (CXType_Pointer)
         return convertPointerType(clang_getPointeeType(type), refCursor);
@@ -212,7 +212,7 @@ convertType(type:CXType, refCursor:CXCursor) : String {
             "]",
         );
     }
-    return "Opaque";
+    return str("Opaque");
 }
 
 visitStruct(cursor:CXCursor, parent:CXCursor, data:CXClientData) : Int
