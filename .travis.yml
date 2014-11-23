@@ -1,11 +1,21 @@
 language: cpp
 compiler: clang
 before_install:
+  # remove clang-3.4
+  - sudo apt-get remove clang
+  # download and extract LLVM-3.2
   - wget http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
   - tar xf llvm-3.2.src.tar.gz
-  - cd llvm-3.2.src
+  # download and extract clang-3.2
+  - wget http://llvm.org/releases/3.2/clang-3.2.src.tar.gz
+  - tar xf clang-3.2.src.tar.gz
 install:
+  # install LLVM-3.2
+  - cd llvm-3.2.src/
   - ./configure && make && sudo make install
-  - cd -
+  # install clang-3.2
+  - cd ../clang-3.2.src/
+  - ./configure && make && sudo make install
+  - cd ..
 before_script: cmake -G "Unix Makefiles"
 script: make
