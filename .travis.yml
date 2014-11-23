@@ -3,9 +3,9 @@ language: cpp
 compiler: clang
 before_install:
   - wget http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
-  - tar llvm-3.2.src.tar.gz
+  - tar xf llvm-3.2.src.tar.gz
   - wget http://llvm.org/releases/3.2/clang-3.2.src.tar.gz
-  - tar clang-3.2.src.tar.gz
+  - tar xf clang-3.2.src.tar.gz
 install:
   - cd llvm-3.2.src
   - ./configure --prefix=$CLANG_PATH_TO_LLVM_BUILD && make && sudo make install
