@@ -1,17 +1,17 @@
-env: CLANG_PATH_TO_LLVM_BUILD=~/llvm-3.2
+env: CLANG_PATH_TO_LLVM_BUILD=$PWD/llvm-3.2
 language: cpp
 compiler: clang
 before_install:
-  - wget -P ~ http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
-  - tar -C ~ -xf ~/llvm-3.2.src.tar.gz
-  - wget -P ~ http://llvm.org/releases/3.2/clang-3.2.src.tar.gz
-  - tar -C ~ -xf ~/clang-3.2.src.tar.gz
+  - wget http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
+  - tar llvm-3.2.src.tar.gz
+  - wget http://llvm.org/releases/3.2/clang-3.2.src.tar.gz
+  - tar clang-3.2.src.tar.gz
 install:
-  - cd ~/llvm-3.2.src
-  - ./configure --prefix=~/llvm-3.2 && make && sudo make install
-  - cd ~/clang-3.2.src
+  - cd llvm-3.2.src
+  - ./configure --prefix=$CLANG_PATH_TO_LLVM_BUILD && make && sudo make install
+  - cd ../clang-3.2.src
   - cmake -G "Unix Makefiles" && make && sudo make install
-before_script: 
-  - cd ~/iamrekcah/clay
+before_script:
+  - cd ..
   - cmake -G "Unix Makefiles"
 script: make
