@@ -15,7 +15,7 @@ install:
   - ./configure && make && sudo make install
   # install clang-3.2
   - cd ../clang-3.2.src/
-  - ./configure && make && sudo make install
+  - cmake -G "Unix Makefiles" && make && sudo make install
   - cd ..
 before_script: cmake -G "Unix Makefiles"
 script: make
