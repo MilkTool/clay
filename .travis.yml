@@ -1,4 +1,11 @@
 language: cpp
 compiler: clang
+before_install:
+  - wget http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
+  - tar xf llvm-3.2.src.tar.gz
+  - cd llvm-3.2.src
+install:
+  - ./configure && make && sudo make install
+  - cd -
 before_script: cmake -G "Unix Makefiles"
 script: make
