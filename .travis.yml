@@ -1,13 +1,8 @@
-env: LLVM_DIR=$PWD/llvm-3.2
 language: cpp
 compiler: clang
 before_install:
-  - wget http://llvm.org/releases/3.2/llvm-3.2.src.tar.gz
-  - tar xf llvm-3.2.src.tar.gz
-install:
-  - cd llvm-3.2.src
-  - ./configure --prefix=$LLVM_DIR && make && make install
+  - wget http://llvm.org/releases/3.2/clang+llvm-3.2-x86_64-linux-ubuntu-12.04.tar.gz
+  - tar xf clang+llvm-3.2-x86_64-linux-ubuntu-12.04.tar.gz
 before_script:
-  - cd ..
-  - cmake -G "Unix Makefiles"
+  - cmake -DLLVM_DIR=$PWD/clang+llvm-3.2-x86_64-linux-ubuntu-12.04 -G "Unix Makefiles"
 script: make
