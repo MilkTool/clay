@@ -956,7 +956,7 @@ int main2(int argc, char **argv, char const* const* envp) {
     }
 
     if (repl && clayScript.empty() && clayFile.empty()) {
-        clayScript = "/*empty module if file not specified*/";
+        clayScript = "// empty module if file not specified";
     }
     else {
         if (clayScript.empty() && clayFile.empty()) {
@@ -1126,7 +1126,7 @@ int main2(int argc, char **argv, char const* const* envp) {
         string clayScriptSource;
         vector<string> sourceFiles;
         if (!clayScript.empty()) {
-            clayScriptSource = clayScriptImports + "main() {\n" + clayScript + "}";
+            clayScriptSource = clayScriptImports + "main() {\n" + clayScript + "\n}";
             m = loadProgramSource("-e", clayScriptSource, verbose, repl);
         } else if (generateDeps)
             m = loadProgram(clayFile, &sourceFiles, verbose, repl);
