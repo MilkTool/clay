@@ -8,11 +8,8 @@
 namespace clay {
 
 static bool ishex(char *ptr) {
-    return
-        ((ptr[0] == '+' || ptr[0] == '-')
-            && ptr[1] == '0'
-            && (ptr[2] == 'x' || ptr[2] == 'X'))
-        || (ptr[0] == '0' && (ptr[1] == 'x' || ptr[1] == 'X'));
+    return ((ptr[0] == '+' || ptr[0] == '-') && (ptr[1] == '0' && ptr[2] == 'x'))
+         || (ptr[0] == '0' && ptr[1] == 'x');
 }
 
 static int bitcount(unsigned long long bits)
