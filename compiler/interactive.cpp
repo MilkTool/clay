@@ -6,10 +6,12 @@
 #include "loader.hpp"
 #include "invoketables.hpp"
 #include "env.hpp"
+#include "linenoise.h"
 
 #include <setjmp.h>
 #include <signal.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 namespace clay {
 
@@ -262,18 +264,19 @@ namespace clay {
     static void interactiveLoop()
     {
         setjmp(recovery);
-        string line;
-        while(true) {
-            llvm::errs().flush();
-            llvm::errs() << "clay>";
-            char buf[255];
-            line = fgets(buf, 255, stdin);
-            line = stripSpaces(line);
+        linenoiseSetMultiLine(1);
+        linenoiseHistorySetMaxLen(100);
+
+        char *buf;
+        while ((buf = linenoise("clay> ")) != NULL) {
+            linenoiseHistoryAdd(buf);
+            string line = stripSpaces(buf);
             if (line[0] == ':') {
                 replCommand(line.substr(1, line.size() - 1));
             } else {
                 eval(line);
             }
+            free(buf);
         }
         engine->runStaticConstructorsDestructors(true);
     }

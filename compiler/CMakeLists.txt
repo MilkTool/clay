@@ -1,4 +1,5 @@
 include(PCHsupport)
+include(ExternalProject)
 
 set(COMPILER_SOURCES
     analyzer.cpp
@@ -44,6 +45,14 @@ set(UT_SOURCES
     ut_main.cpp
 )
 
+ExternalProject_Add(linenoise
+    SOURCE_DIR ${PROJECT_SOURCE_DIR}/external/linenoise
+    CONFIGURE_COMMAND ""
+    BINARY_DIR ${CMAKE_BINARY_DIR}/external/linenoise
+    BUILD_COMMAND ${CMAKE_C_COMPILER} -Wall -Os -c ${PROJECT_SOURCE_DIR}/external/linenoise/linenoise.c
+    INSTALL_COMMAND "")
+ExternalProject_Get_Property(linenoise BINARY_DIR)
+ExternalProject_Get_Property(linenoise SOURCE_DIR)
 
 # version info is only updated when cmake is run
 if(Subversion_FOUND AND EXISTS "${LLVM_DIR}/.svn")
@@ -87,6 +96,8 @@ add_library(compiler STATIC ${COMPILER_SOURCES})
 add_executable(clay ${CLAY_SOURCES})
 add_executable(claydoc ${CLAYDOC_SOURCES})
 add_executable(ut ${UT_SOURCES})
+add_dependencies(compiler linenoise)
+
 set_target_properties(compiler PROPERTIES COMPILE_FLAGS "${CLAY_CXXFLAGS}")
 set_target_properties(clay PROPERTIES COMPILE_FLAGS "${CLAY_CXXFLAGS}")
 set_target_properties(claydoc PROPERTIES COMPILE_FLAGS "${CLAY_CXXFLAGS}")
@@ -102,9 +113,11 @@ endif(UNIX)
 install(TARGETS clay RUNTIME DESTINATION bin)
 install(TARGETS claydoc RUNTIME DESTINATION bin)
 
+target_link_libraries(compiler ${BINARY_DIR}/linenoise.o)
 target_link_libraries(clay compiler ${LLVM_LIBS})
 target_link_libraries(claydoc compiler ${LLVM_LIBS})
 target_link_libraries(ut compiler "${LLVM_LIBS} ${LLVM_LDFLAGS}")
+target_include_directories(compiler PUBLIC ${SOURCE_DIR})
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
     target_link_libraries(clay "rt")
