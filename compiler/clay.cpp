@@ -525,11 +525,6 @@ static void printVersion() {
 }
 
 int main2(int argc, char **argv, char const* const* envp) {
-    if (argc == 1) {
-        usage(argv[0]);
-        return 2;
-    }
-
     bool emitLLVM = false;
     bool emitAsm = false;
     bool emitObject = false;
@@ -583,6 +578,8 @@ int main2(int argc, char **argv, char const* const* envp) {
 #endif
 
     bool debug = false;
+    
+    if (argc == 1) repl = true;
 
     for (int i = 1; i < argc; ++i) {
         if ((strcmp(argv[i], "-shared") == 0))
