@@ -1,4 +1,4 @@
-
+import libc.(Struct___pthread_mutex_s);
 
 alias __u_char = CUChar;
 
