@@ -842,6 +842,11 @@ alias Union_Unnamed9 = Union[
      Int64,
 ];
 
+record Struct_Unnamed10 (
+     _function : CCodePointer[[Union_sigval], []],
+     _attribute : OpaquePointer,
+);
+
 alias pthread_cond_t = Union_Unnamed9;
 
 alias Union_Unnamed11 = Union[
