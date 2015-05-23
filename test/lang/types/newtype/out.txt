@@ -1,5 +1,5 @@
 Type(Foo) = Static[Foo]
-TypeSize(Foo) = 24
+TypeSize(Foo) = 16
 BaseType(Foo) = Bar
 NewType?(Foo) = true
 Type(a) = Foo

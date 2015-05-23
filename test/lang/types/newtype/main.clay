@@ -16,7 +16,7 @@ main() {
 	println("Type(a) = ", Type(a));
 	
 	var c = Pointer[Int32](@a);
-	println(c^, ", ",  (c+4)^);
+	println(c^, ", ",  (c+3)^);
 	
 	var d = baseCast(a);
 	println(Type(d), ", ", d);
