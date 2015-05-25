@@ -123,9 +123,7 @@ namespace clay {
             if (tokens[i].tokenKind == T_IDENTIFIER) {
                 Str identifier = tokens[i].str;
                 llvm::StringMap<ImportSet>::const_iterator iter = module->allSymbols.find(identifier);
-                if (iter == module->allSymbols.end()) {
-                    llvm::errs() << "Can't find identifier " << identifier.c_str();
-                } else {
+                if (iter != module->allSymbols.end()) {
                     for (size_t i = 0; i < iter->second.size(); ++i) {
                         llvm::errs() << iter->second[i] << "\n";
                     }
