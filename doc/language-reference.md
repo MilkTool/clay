@@ -107,16 +107,17 @@ Clay identifiers begin with an ASCII letter character, underscore (`_`), or ques
 #### <a name="integerliterals"></a>Integer literals
 
     # Grammar
-    IntToken -> "0x" HexDigits
-              | DecimalDigits
+    IntToken -> "0b" BinaryDigits | "0o" OctalDigits | "0x" HexDigits | DecimalDigits
 
+    BinaryDigits -> /([01]_?)+[01]/
+    OctalDigits -> /([0-7]_?)+[0-7]/
     HexDigits -> /([0-9A-Fa-f]_?)+[0-9A-Fa-f]/
     DecimalDigits -> /([0-9]_?)+[0-9]/
 
-Integer literals may be expressed in decimal, or in hexadecimal prefixed by `0x`. Either form may include any number of underscores after any digit for human readability purposes (excluding the leading `0` in the `0x` prefix). Underscores have no effect on the value of the literal.
+Integer literals may be expressed in several numeric bases: binary (when prefixed by `0b`), octal (when prefixed by `0o`), hexadecimal (when prefixed by `0x`), or decimal. All forms may include any number of underscores after any digit for human readability purposes (excluding the leading `0` in the `0x`, `0o`, or `0b` prefixes). Underscores have no effect on the value of the literal.
 
     // Examples of integer literals
-    0 1 23 0x45abc 1_000_000 0xFFFF_FFFF
+    0 1 23 0x45abc 1_000_000 0xFFFF_FFFF 0b11110000 0o777
 
 #### <a name="floatingpointliterals"></a>Floating-point literals
 

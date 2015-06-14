@@ -1,0 +1,45 @@
+import printer.(println);
+
+main() {
+    println(0);
+    println(-0);
+    println(1);
+    println(-1);
+
+    // lower-bound of unsigned integers
+    println(0);
+    println(0uss);
+    println(0us);
+    println(0u);
+    println(0ul);
+
+    // upper-bound of unsigned integers
+    println(255uss);
+    println(65535us);
+    println(4_294_967_295u);
+    println(18_446_744_073_709_551_615ul);
+
+    // lower-bounds of signed integers
+    println(-128ss);
+    println(-32_768s);
+    println(-2_147_483_648i);
+    println(-9_223_372_036_854_775_808l);
+
+    // upper-bound of signed integers
+    println(127ss);
+    println(32767s);
+    println(2_147_483_647i);
+    println(9_223_372_036_854_775_807l);
+
+    println(Type(0));
+    println(Type(0ss));
+    println(Type(0uss));
+    println(Type(0s));
+    println(Type(0us));
+    println(Type(0i));
+    println(Type(0u));
+    println(Type(0l));
+    println(Type(0ul));
+    println(Type(0ll));
+    println(Type(0ull));
+}

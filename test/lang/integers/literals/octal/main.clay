@@ -1,0 +1,48 @@
+import printer.(println);
+
+main() {
+    println(0o0);
+    println(-0o0);
+    println(0o1);
+    println(-0o1);
+
+    // unsigned lower bound
+    println(0o0uss);
+    println(0o0us);
+    println(0o0u);
+    println(0o0ul);
+    //println(0o0ull);
+
+    // unsigned upper bound
+    println(0o377uss);
+    println(0o177777us);
+    println(0o37777777777u);
+    println(0o1777777777777777777777ul);
+    //println(0o3777777777777777777777777777777777777777777ull);
+
+    // signed lower bound
+    println(-0o200ss);
+    println(-0o100000s);
+    println(-0o20000000000i);
+    println(-0o1000000000000000000000l);
+    //println(-0o2000000000000000000000000000000000000000000ll);
+
+    // signed upper bound
+    println(0o177ss);
+    println(0o77777s);
+    println(0o17777777777u);
+    println(0o777777777777777777777ul);
+    //println(0o1777777777777777777777777777777777777777777ull);
+
+    println(Type(0o0));
+    println(Type(0o0ss));
+    println(Type(0o0uss));
+    println(Type(0o0s));
+    println(Type(0o0us));
+    println(Type(0o0i));
+    println(Type(0o0u));
+    println(Type(0o0l));
+    println(Type(0o0ul));
+    println(Type(0o0ll));
+    println(Type(0o0ull));
+}

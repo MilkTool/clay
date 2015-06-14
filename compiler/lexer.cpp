@@ -238,8 +238,24 @@ static bool opIdentifier(Token &x) {
 
 
 //
-// hex and decimal digits
+// binary, octal, hex, and decimal digits
 //
+
+static bool binaryDigit(int &x) {
+    char c;
+    if (!next(c)) return false;
+    return c == '0' || c == '1';
+}
+
+static bool octalDigit(int &x) {
+    char c;
+    if (!next(c)) return false;
+    if ((c >= '0') && (c <= '7')) {
+        x = c - '0';
+        return true;
+    }
+    return false;
+}
 
 static bool hexDigit(int &x) {
     char c;
@@ -394,6 +410,32 @@ static bool optNumericSeparator() {
     return true;
 }
 
+static bool binaryDigits() {
+    int x;
+    while (true) {
+        optNumericSeparator();
+        const char *p = save();
+        if (!binaryDigit(x)) {
+            restore(p);
+            break;
+        }
+    }
+    return true;
+}
+
+static bool octalDigits() {
+    int x;
+    while (true) {
+        optNumericSeparator();
+        const char *p = save();
+        if (!octalDigit(x)) {
+            restore(p);
+            break;
+        }
+    }
+    return true; 
+}
+
 static bool decimalDigits() {
     int x;
     while (true) {
@@ -418,6 +460,20 @@ static bool hexDigits() {
         }
     }
     return true;
+}
+
+static bool binaryInt() {
+    if (!str("0b")) return false;
+    int x;
+    if (!binaryDigit(x)) return false;
+    return binaryDigits();
+}
+
+static bool octalInt() {
+    if (!str("0o")) return false;
+    int x;
+    if (!octalDigit(x)) return false;
+    return octalDigits();
 }
 
 static bool hexInt() {
@@ -455,6 +511,10 @@ static bool intToken(Token &x) {
     const char *begin = save();
     if (!sign()) restore(begin);
     const char *p = save();
+    if (binaryInt()) goto success;
+    restore(p);
+    if (octalInt()) goto success;
+    restore(p);
     if (hexInt()) goto success;
     restore(p);
     if (decimalInt()) goto success;

@@ -840,12 +840,33 @@ struct BoolLiteral : public Expr {
 };
 
 struct IntLiteral : public Expr {
+    const int base;
     const string value;
+    const string digits;
     const string suffix;
     IntLiteral(llvm::StringRef value)
-        : Expr(INT_LITERAL), value(value) {}
+        : Expr(INT_LITERAL), value(value), base(getBase(value)), digits(stripPrefix(value)) {}
     IntLiteral(llvm::StringRef value, llvm::StringRef suffix)
-        : Expr(INT_LITERAL), value(value), suffix(suffix) {}
+        : Expr(INT_LITERAL), value(value), base(getBase(value)), digits(stripPrefix(value)), suffix(suffix) {}
+private:
+    bool sign(string value) const {
+        return value[0] == '-' || value[0] == '+';
+    }
+    int getBase(string value) const {
+        int i = sign(value) ? 1 : 0;
+        if (value[i] == '0' && value[i+1] == 'b') return 2;
+        if (value[i] == '0' && value[i+1] == 'o') return 8;
+        if (value[i] == '0' && value[i+1] == 'x') return 16;
+        return 10;
+    }
+    string stripPrefix(string value) const {
+        if (getBase(value) == 10) return value;
+        if (sign(value)) {
+            char sign = (char)value[0];
+            return value.substr(3).insert(0, 1, sign);
+        } else
+            return value.substr(2);
+    }
 };
 
 struct FloatLiteral : public Expr {
