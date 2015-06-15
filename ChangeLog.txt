@@ -4,6 +4,12 @@
 
 Language changes:
 -----------------
+* Integer literals can now come in binary and octal forms, among the existing
+  hexadecimal and decimal forms.
+    // example
+    var x = 0b0101;
+    var y = 0o755;
+
 * Reimplement the Triple-Quote string (""") as a Raw String.
   As a raw string, nothing will be escaped, including the delimiter. Therefore,
   whitespace is significant.
