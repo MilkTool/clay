@@ -4,8 +4,8 @@ before_install:
   - sudo add-apt-repository -y ppa:kalakris/cmake
   - sudo apt-get update -qq
   - sudo apt-get install -y cmake
-  - wget http://llvm.org/releases/3.3/clang+llvm-3.3-i386-debian6.tar.bz2
-  - tar xf clang+llvm-3.3-i386-debian6.tar.bz2
+  - wget http://llvm.org/releases/3.3/clang+llvm-3.3-amd64-Ubuntu-12.04.2.tar.gz
+  - tar xf clang+llvm-3.3-amd64-Ubuntu-12.04.2.tar.gz
 before_script:
-  - cmake -DLLVM_DIR=$PWD/clang+llvm-3.3-i386-debian6 -G "Unix Makefiles"
+  - cmake -DLLVM_DIR=$PWD/clang+llvm-3.3-amd64-Ubuntu-12.04.2 -G 'Unix Makefiles'
 script: make
