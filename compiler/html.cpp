@@ -6,6 +6,63 @@
 using namespace clay;
 using namespace std;
 
+static string getCssStyle()
+{
+    return
+    "* { padding: 0; margin: 0 }\n"
+    "body { background: #fff; font-family: sans-serif; font-size: 0.8em; }\n"
+    "#mainContentInner { margin-left: 10%; }\n"
+    "#navigation { background: #999; }\n"
+    "#navigation li { list-style: none; }\n"
+    "#navigation li a { "
+        "display: block;"
+        "padding: 0.5em;"
+        "float: left;"
+        "background: #999;"
+        "text-decoration: underline;"
+        "color: #000;"
+        "font-weight: bold;"
+     "}\n"
+    "#navigation .post-ul { clear: both; }\n"
+    "#main h1 { background: #aaa; padding-left: 10% }\n"
+    "#mainContentHeader { background: #aaa; border-bottom: 1px solid black; }\n"
+    "#mainContentHeader .inlinedoc { padding-left: 11%; }\n"
+    "h2 { padding-bottom: 0.5em; }\n"
+    "section { padding: 2em; }\n"
+    "section h2 { "
+        "width: 80%;"
+        "display: block;"
+        "border-bottom: 1pxsolid #aaa;"
+        "padding: 0;"
+        "margin-bottom: 1.5em;"
+        "font-size: 1em;"
+    "}\n"
+    "h3 { font-weight: normal; }\n"
+    ".functionPredicate { display: block; font-size: 0.8em; margin-left: 0.7em; }\n"
+    ".keyword { "
+        "font-weight: bold;"
+        "width: 5em;"
+        "display: inline-block;"
+        "text-align: right;"
+        "padding-right: 0.5em;"
+        "color: #522;"
+        "line-height: 1.4em;"
+    "}\n"
+    ".identifier { height: 1.4em; line-height: 1.4em; display: inline-block }\n"
+    ".definition , .overload { margin-top: 0.5em; }\n"
+    ".inlinedoc { padding-bottom: 1em; padding-left: 1em }\n"
+    "a.reference { text-decoration: none; color: #000 }\n"
+    "a.reference:hover { text-decoration: underline; color: #00f; }\n"
+    ".brokenreference { background: url(underline.gif) bottom repeat-x; }\n"
+    "#moduleIndexOuter {}\n"
+    "#moduleIndexOuter li { list-style: none; }\n"
+    ",moduleIndexSectionHeader { margin-bottom: 1em; padding-top: 2em; clear: both; }\n"
+    ".moduleIndexItem { display: block; float: left; width: 49%; }\n"
+    ".moduleIndexItem a { text-decoration: none; color: #000; }\n"
+    ".moduleIndexItem a:hover { text-decoration: underline; color: #00f; }\n"
+    ;
+}
+
 static void htmlEncode(std::string& data)
 {
     std::string buffer;
@@ -127,7 +184,7 @@ static void emitHtmlHeader(std::ostream &o, std::string title)
       << "<html lang='en'>\n"
       << "<head>\n"
       << "<title>" << title << "</title>\n"
-      << "<link rel='stylesheet' href='style.css'>\n"
+      << "<style>\n" << getCssStyle() << "</style>\n"
       << "</head><body>"
       << "<div id='navigation'><ul>\n"
       << "  <li><a href='index.html'> Module Index </a> </li>\n"
