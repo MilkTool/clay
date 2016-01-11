@@ -1,4 +1,4 @@
-Clay 0.2-WIP [![Build Status](https://travis-ci.org/iamrekcah/clay.svg?branch=master)](https://travis-ci.org/iamrekcah/clay)
+Clay 0.2-WIP [![Build Status](https://travis-ci.org/mario-campos/clay.svg?branch=master)](https://travis-ci.org/mario-campos/clay)
 ------------
 
 Clay is a programming language designed for Generic Programming.
