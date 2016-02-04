@@ -34,6 +34,27 @@ static int hexdigit(char c)
     return 0;
 }
 
+static bool hasSign(IntLiteral *x) {
+    return x->value[0] == '-' || x->value[0] == '+';
+}
+
+static int radix(IntLiteral *x) {
+    int i = hasSign(x) ? 1 : 0;
+    if (x->value[i] == '0' && x->value[i+1] == 'b') return 2;
+    if (x->value[i] == '0' && x->value[i+1] == 'o') return 8;
+    if (x->value[i] == '0' && x->value[i+1] == 'x') return 16;
+    return 10;
+}
+
+static string digits(IntLiteral *x) {
+    if (radix(x) == 10) return x->value;
+    if (hasSign(x)) {
+        char sign = (char)(x->value[0]);
+        return x->value.substr(3).insert(0, 1, sign);
+    } else
+        return x->value.substr(2);
+}
+
 static double floatFromParts(bool negp, int exponent, unsigned long long mantissa)
 {
     union { double f; unsigned long long bits; } x;
@@ -164,11 +185,11 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
     if (defaultType == NULL)
         defaultType = int32Type;
 
-    char *ptr = const_cast<char *>(x->digits.c_str());
+    char *ptr = const_cast<char *>(digits(x).c_str());
     char *end = ptr;
     ValueHolderPtr vh;
     if (typeSuffix(x->suffix, defaultType, "ss", int8Type)) {
-        long y = strtol(ptr, &end, x->base);
+        long y = strtol(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid int8 literal");
         if ((errno == ERANGE) || (y < SCHAR_MIN) || (y > SCHAR_MAX))
@@ -177,7 +198,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((char *)vh->buf) = (char)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "s", int16Type)) {
-        long y = strtol(ptr, &end, x->base);
+        long y = strtol(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid int16 literal");
         if ((errno == ERANGE) || (y < SHRT_MIN) || (y > SHRT_MAX))
@@ -186,7 +207,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((short *)vh->buf) = (short)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "i", int32Type)) {
-        long y = strtol(ptr, &end, x->base);
+        long y = strtol(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid int32 literal");
         if (errno == ERANGE || (y < INT_MIN) || (y > INT_MAX))
@@ -195,7 +216,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((int *)vh->buf) = (int)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "l", int64Type)) {
-        long long y = strtoll(ptr, &end, x->base);
+        long long y = strtoll(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid int64 literal");
         if (errno == ERANGE)
@@ -204,7 +225,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((long long *)vh->buf) = y;
     }
     else if (typeSuffix(x->suffix, defaultType, "ll", int128Type)) {
-        long long y = strtoll(ptr, &end, x->base);
+        long long y = strtoll(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid int128 literal");
         if (errno == ERANGE)
@@ -213,7 +234,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((clay_int128 *)vh->buf) = y;
     }
     else if (typeSuffix(x->suffix, defaultType, "uss", uint8Type)) {
-        unsigned long y = strtoul(ptr, &end, x->base);
+        unsigned long y = strtoul(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid uint8 literal");
         if ((errno == ERANGE) || (y > UCHAR_MAX))
@@ -222,7 +243,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((unsigned char *)vh->buf) = (unsigned char)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "us", uint16Type)) {
-        unsigned long y = strtoul(ptr, &end, x->base);
+        unsigned long y = strtoul(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid uint16 literal");
         if ((errno == ERANGE) || (y > USHRT_MAX))
@@ -231,7 +252,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((unsigned short *)vh->buf) = (unsigned short)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "u", uint32Type)) {
-        unsigned long y = strtoul(ptr, &end, x->base);
+        unsigned long y = strtoul(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid uint32 literal");
         if (errno == ERANGE)
@@ -240,7 +261,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((unsigned int *)vh->buf) = (unsigned int)y;
     }
     else if (typeSuffix(x->suffix, defaultType, "ul", uint64Type)) {
-        unsigned long long y = strtoull(ptr, &end, x->base);
+        unsigned long long y = strtoull(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid uint64 literal");
         if (errno == ERANGE)
@@ -249,7 +270,7 @@ ValueHolderPtr parseIntLiteral(ModulePtr module, IntLiteral *x)
         *((unsigned long long *)vh->buf) = y;
     }
     else if (typeSuffix(x->suffix, defaultType, "ull", uint128Type)) {
-        unsigned long long y = strtoull(ptr, &end, x->base);
+        unsigned long long y = strtoull(ptr, &end, radix(x));
         if (*end != 0)
             error("invalid uint128 literal");
         if (errno == ERANGE)
