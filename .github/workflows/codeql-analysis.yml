@@ -28,9 +28,9 @@ jobs:
         languages: ${{ matrix.language }}
 
     - run: |
-       mkdir build
-       cd build
-       cmake -G 'Unix Makefiles' ../
+       wget http://llvm.org/releases/3.3/clang+llvm-3.3-amd64-Ubuntu-12.04.2.tar.gz
+       tar xf clang+llvm-3.3-amd64-Ubuntu-12.04.2.tar.gz
+       cmake -DLLVM_DIR=$PWD/clang+llvm-3.3-amd64-Ubuntu-12.04.2 -G 'Unix Makefiles'
        make
 
     - name: Perform CodeQL Analysis
